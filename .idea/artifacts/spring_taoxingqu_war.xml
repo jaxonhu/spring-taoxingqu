@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="spring-taoxingqu:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="spring-taoxingqu.war">
+      <element id="artifact" artifact-name="spring-taoxingqu:war exploded" />
+    </root>
+  </artifact>
+</component>

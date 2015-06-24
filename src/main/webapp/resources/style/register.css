@@ -1,0 +1,51 @@
+body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, th, td, p, blockquote, pre, form, fieldset, legend, input, button, textarea, hr {
+    margin: 0;
+    padding: 0;
+    font-family:  Arial, 'Microsoft YaHei' !important;
+}
+.register_account{
+    background-image: url("/spring-taoxingqu/resources/image/form_login.png");
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px 0 #eaeaea inset;
+    color: #808080;
+    height: 28px;
+    overflow: hidden;
+    padding: 0 0 0px 37px;
+    vertical-align: middle;
+    width: 171px;
+    margin-bottom: 10px;
+}
+.register_pwd{
+    position: relative;
+    background-image: url("/spring-taoxingqu/resources/image/form_login.png");
+    background-position:  0 -50px;
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px 0 #eaeaea inset;
+    color: #808080;
+    height: 28px;
+    overflow: hidden;
+    padding: 0 0 0 37px;
+    vertical-align: middle;
+    width: 171px;
+    margin-bottom: 10px;
+}
+.msg{
+    width:171px;
+    position: relative;
+    text-align: left;
+    display: block;
+    height: 20px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+.head_span{
+    font-size: 30px;
+    color: #fb1e23;
+    font-style: oblique;
+    position: relative;
+    top: -20px;
+}

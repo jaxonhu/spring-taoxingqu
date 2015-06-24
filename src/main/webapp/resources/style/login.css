@@ -1,0 +1,169 @@
+body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, th, td, p, blockquote, pre, form, fieldset, legend, input, button, textarea, hr {
+	margin: 0;
+	padding: 0;
+	font-family:  Arial, 'Microsoft YaHei' !important;
+}
+img{
+	display: block;
+}
+.clearfix::after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+.clearfix{
+	display: inline-block;
+}
+.clearfix {
+	display: block;
+}
+.clear {
+	clear: both;
+	font: 0px/0 Arial;
+	height: 0;
+	visibility: hidden;
+}
+.B_login{
+	background-image: url("/spring-taoxingqu/resources/image/bg_reg.png")  ;
+	-webkit-background-size:150%;
+	-moz-background-size:150%;
+	-o-background-size:150%;
+	background-size:150%;
+	background-color: #b9dbf4;
+	background-position: 0 top;
+	background-repeat: repeat-x;
+
+}
+.main{
+	width: 900px;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 500px;
+	background-color: #fff;
+	border-top: 5px solid #fb1e23 ;
+}
+.main_header{
+	width:900px;
+
+}
+.main_container{
+	width: 900px;
+
+}
+.logo{
+	padding: 10px;
+}
+.leftbox{
+	float: left;
+	width: 567px;
+	background-image: url("/spring-taoxingqu/resources/image/login_vline.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+.loginbox{
+	float: right;
+	padding: 0 0 0 59px;
+	width: 271px;
+	background: #fff;
+	left: -5px;
+	position: relative;
+}
+.login_form{
+	margin: 29px 0 0;
+	width: 250px;
+
+}
+.myform{
+
+}
+.account{
+	background-image: url("/spring-taoxingqu/resources/image/form_login.png");
+	background-repeat: no-repeat;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	box-shadow: 1px 1px 1px 0 #eaeaea inset;
+	color: #808080;
+	height: 28px;
+	overflow: hidden;
+	padding: 0 0 0px 37px;
+	vertical-align: middle;
+	width: 210px;
+	margin-bottom: 10px;
+}
+.pwd{
+	position: relative;
+	background-image: url("/spring-taoxingqu/resources/image/form_login.png");
+	background-position:  0 -50px;
+	background-repeat: no-repeat;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	box-shadow: 1px 1px 1px 0 #eaeaea inset;
+	color: #808080;
+	height: 28px;
+	overflow: hidden;
+	padding: 0 0 0 37px;
+	vertical-align: middle;
+	width: 210px;
+	margin-bottom: 20px;
+}
+.click_login{
+	display: block;
+	font-size: 20px;
+	font-family: sans-serif !important;
+	background-color: #ffa00a;
+	border-color: #ff9b01;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #fff;
+	cursor: pointer;
+	overflow: hidden;
+	vertical-align: middle;
+	width: 210px;
+	height: 30px;
+}
+.login_span{
+	font-size: 20px;
+	font-family: sans-serif !important;
+	display: block;
+	padding-top: 20px;
+}
+
+.register{
+	display: block;
+	margin-top: 20px;
+	background-color: #ffa00a;
+	border-color: #ff9b01;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+	color: #fff;
+	cursor: pointer;
+	overflow: hidden;
+	vertical-align: middle;
+	width: 210px;
+	height: 30px;
+	text-decoration: none;
+}
+.span_register{
+	position: relative;
+	font-size: 20px;
+	font-family: sans-serif !important;
+	display: block;
+	width: 210px;
+	height: 30px;
+	text-align: center;
+	padding-top: 20px;
+	top: -20px;
+}
+.click_login:hover{
+	background-color: #fb1e23;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px #fb1e23, 0 0 70px #fb1e23;
+}
+.register:hover{
+	background-color: #fb1e23;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px #fb1e23, 0 0 70px #fb1e23;
+}
