@@ -1,6 +1,8 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.model.UserPD;
+import com.springapp.mvc.util.DuplicateException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,7 +38,7 @@ public class UserDA {
 
 
 
-    public static int insert(UserPD user)throws DuplicateException{
+    public static int insert(UserPD user)throws DuplicateException {
         name = user.getName();
         pwd = user.getPwd();
         String sql = "insert into user(user_name,password) values('"+name+"','"+pwd+"')";

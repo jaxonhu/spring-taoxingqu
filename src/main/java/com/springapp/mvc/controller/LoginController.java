@@ -1,11 +1,9 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.dao.DuplicateException;
+import com.springapp.mvc.util.DuplicateException;
 import com.springapp.mvc.dao.UserDA;
 import com.springapp.mvc.model.UserPD;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 
@@ -20,6 +18,7 @@ public class LoginController {
     @RequestMapping("/login")
     public ModelAndView start(){
         ModelAndView mv = new ModelAndView();
+        System.out.println("success");
         mv.setViewName("login");
         return mv;
     }
