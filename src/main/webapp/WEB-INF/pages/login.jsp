@@ -20,13 +20,13 @@
 			</div>
 			<div class="loginbox">
 				<div class="login_form">
-					<form action="/spring-taoxingqu/login.do" class="myform">
+					<form action="/spring-taoxingqu/login.do" class="myform" method="post">
 						<input type="text" class="account" name="user_name" placeholder="请输入用户名"/>
 						<input type="password" class="pwd" name="password" placeholder="请输入登录密码"/>
 						<button type="submit" class="click_login">登录</button>
 					</form>
 					<span class="login_span">还没账号？赶快注册！</span>
-					<a class="register" href="">
+					<a class="register" href="/spring-taoxingqu/register">
 						<span class="span_register">注册</span>
 					</a>
 				</div>

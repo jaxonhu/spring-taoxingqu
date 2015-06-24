@@ -23,7 +23,7 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, th, td, p, blockquote, pre
     visibility: hidden;
 }
 body{
-    background-image: url("/spring-taoxingqu/resources/image/body_bg.jpg");
+    background-image: url("../image/body_bg.jpg");
     background-color: #b9dbf4;
     background-position: 0 top;
     background-repeat: repeat-x;
@@ -79,7 +79,7 @@ body{
     box-shadow: 0 0 3px 0 #ffa00a ;
 }
 .search_input:focus + .icon_search{
-    background: url("/spring-taoxingqu/resources/image/search_icon_focus.png") no-repeat;
+    background: url("../image/search_icon_focus.png") no-repeat;
 }
 .icon_search{
     text-indent: -9999px;
@@ -88,7 +88,7 @@ body{
     top: 5px;
     width: 20px;
     height: 20px;
-    background: url("/spring-taoxingqu/resources/image/search_icon.png") no-repeat;
+    background: url("../image/search_icon.png") no-repeat;
 }
 .menu{
     display: inline-block;
@@ -123,7 +123,7 @@ i{
 }
 .main_frame{
     position:relative;
-    top: 50px;
+    top: 60px;
     margin: 0 auto;
     min-height: 680px;
     padding: 16px 0 0;
@@ -149,7 +149,6 @@ i{
     position: absolute;
 }
 .main_center{
-    height: 300px;
     margin-top: -16px;
     background-color: #b7d4ef;
     margin-left: 155px;
@@ -229,6 +228,7 @@ i{
     font-weight: inherit;
 }
 .item_msg{
+
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
@@ -285,7 +285,7 @@ i{
     border-top: 1px solid #d5dee3;
 }
 .handler_msg nav li{
-    width: 32.5%;
+    width: 32.8%;
     text-align: center;
     display: inline-block;
     border-right: 1px solid #d5dee3;
@@ -359,4 +359,94 @@ i{
     display: block;
     color: #808080;
     font-size: 12px;
+}
+.comments{
+    padding: 0;
+    background-color: #f2f2f5;
+}
+.give_comment{
+    border-top-style: solid;
+    border-top-width: 1px;
+    margin: -1px 0 0;
+    padding: 16px 10px 6px 10px;
+    border-color: #d9d9d9;color: #333;
+}
+.comment_input{
+    margin: 0 0 10px;
+    padding: 0;
+    font-size: 12px;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+.comment_input textarea{
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    height: 23px;
+    line-height: 18px;
+    margin: 0;
+    outline: medium none;
+    overflow: hidden;
+    padding: 5px 3px 0 6px;
+    word-wrap: break-word;
+    width: 98%;
+    background-color: #fff;
+    border-color: #cccccc;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.15) inset;
+    vertical-align: middle;
+    resize: none;
+    font-weight: inherit;
+}
+.send_comment{
+    background: #ff8140 none repeat scroll 0 0;
+    border: 1px solid #f77c3d;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    float: right;
+    cursor: pointer;
+    vertical-align: top;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 12px;
+    height: 24px;
+    line-height: 25px;
+    min-width: 40px;
+    outline: medium none;
+    padding: 0 10px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.comment_item{
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    margin: 0 0 -1px;
+    padding: 5px 0 7px;
+    border-color: #d9d9d9;
+    display: block;
+    color: #333;
+}
+.comment_face{
+    padding: 6px 0 0;
+    height: 30px;
+    width: 30px;
+    float: left;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    color: #333;
+}
+.comment_content{
+    margin: 0 0 0 50px;
+    padding: 0 0 2px;
+    line-height: 23px;
+    overflow: hidden;
+    font-size: 12px !important;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+.comment_content span{
+    color: #eb7350;
+    line-height: 23px;
+    word-wrap: break-word;
+    font-size: 12px !important;
 }

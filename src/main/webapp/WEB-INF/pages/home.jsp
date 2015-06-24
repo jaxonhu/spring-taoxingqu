@@ -79,10 +79,30 @@
                         </li></a>
                         <a href="" onclick="return false;" ><li style="font-size:17px;"><i class="fa fa-thumbs-o-down"><span style="font-size: 12px">11</span></i>
                         </li></a>
-                        <a href="" onclick="return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
+                        <a href="" onclick="load_comments();return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
                     </nav>
                 </div>
 
+                <div class="comments" style="display: none;">
+                    <div class="give_comment clearfix">
+                        <div class="comment_input">
+                            <textarea name="comment"  cols="30" rows="10"></textarea>
+                        </div>
+                        <a href="" class="send_comment">发送</a>
+                    </div>
+                    <div class="comment_list">
+                        <!--这里加载评论-->
+                        <div class="comment_item clearfix">
+                            <div class="comment_face">
+                                <img src="<c:url value="/resources/image/face.jpg"/> " height="30" width="30" alt=""/>
+                            </div>
+                            <div class="comment_content">
+                                <span>IAMyours1995</span>
+                                ：ee
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -110,6 +130,18 @@
         </div>
 
     </div>
-
+    <script>
+        var flag = 0;
+        function load_comments(){
+            var commentlist = document.getElementsByClassName("comments");
+            if(flag == 0){
+                commentlist[0].style.display = "block";
+                flag = 1;
+            }else{
+                commentlist[0].style.display = "none";
+                flag = 0;
+            }
+        }
+    </script>
 </body>
 </html>
