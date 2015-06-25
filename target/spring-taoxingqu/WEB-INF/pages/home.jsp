@@ -175,10 +175,9 @@
                 type:"POST",
                 url:"<%=request.getContextPath()%>/weibo/publish",
                 data:data,
-                dataType:"json",
                 success:function(data){
-                  if(data&data.success == "true"){
-                      alert(data.content);
+                  if(data){
+                      alert(data.data);
                   }
                 },
                 error:function(){

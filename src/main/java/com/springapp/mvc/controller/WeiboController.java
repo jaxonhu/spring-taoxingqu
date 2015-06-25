@@ -22,8 +22,7 @@ import java.util.Map;
 @RequestMapping(value = "/weibo")
 public class WeiboController {
    @RequestMapping("/publish")
-   @ResponseBody //对ajax返回响应必须加上
-    public JSONObject WeiboPublish(HttpServletRequest request,HttpServletResponse response) throws IOException{
+    public @ResponseBody Map<String,Object> WeiboPublish(HttpServletRequest request,HttpServletResponse response) throws IOException{
 
        ModelAndView mv = new ModelAndView();
        String content = URLDecoder.decode(request.getParameter("content"),"UTF-8");
@@ -32,18 +31,16 @@ public class WeiboController {
 //       response.setCharacterEncoding("utf-8");
 //       response.getWriter().write("{\"成功接收\":true }");
 //       response.getWriter().flush();
-
-
-//      Map<String,Object> modelMap = new HashMap<String, Object>(3);
-//      modelMap.put("total","1");
-//      modelMap.put("data", content);
-//      modelMap.put("success", "true");
+      Map<String,Object> modelMap = new HashMap<String, Object>(3);
+      modelMap.put("total","1");
+      modelMap.put("data", content);
+      modelMap.put("success", "true");
        try{
            json.put("content",content);
            json.put("result","success");
        }catch(JSONException e){
            System.out.println(e);
        }
-        return json;
+        return modelMap;
     }
 }
