@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/home.css"/> "/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/font-awesome.css"/> "/>
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <script src="<c:url value="/resources/JS/jquery-1.11.3.js"/>"></script>
     <title></title>
 </head>
 <body>
@@ -54,7 +55,7 @@
                             </a>
                         </li>
                     </nav>
-                    <a href=""class="send_button">发布</a>
+                    <a href="" class="send_button" onclick="WeiboPublish(0); return false;" >发布</a>
                 </div>
             </div>
             <div class="item_msg">
@@ -131,9 +132,12 @@
 
     </div>
     <script>
+
         var flag = 0;
-        function load_comments(){
+        function load_comments(index){
+//            var commentlist = doucument.getElementById(index);
             var commentlist = document.getElementsByClassName("comments");
+
             if(flag == 0){
                 commentlist[0].style.display = "block";
                 flag = 1;
@@ -142,7 +146,48 @@
                 flag = 0;
             }
         }
-        
+
+        function generate_weibo_id(){
+            var id = getDate();
+            alert(id);
+        }
+
+        function getDate(){
+            var mydate=new Date();
+            y=mydate.getFullYear();
+            m=mydate.getMonth()+1;
+            d=mydate.getDate();
+            m=m<10?"0"+m:m;
+            d=d<10?"0"+d:d;
+            return y+"-"+m+"-"+d;
+        }
+        function WeiboPublish(index){
+            var content = document.getElementsByClassName("input_msg");
+            var weibo = content[index].value;
+            var pic_url = "";
+            var thumb_on = 0;
+            var data = {
+                content:weibo,
+                pic_url:pic_url,
+                thumb_on:thumb_on
+            }
+            $.ajax({
+                type:"POST",
+                url:"<%=request.getContextPath()%>/weibo/publish",
+                data:data,
+                dataType:"json",
+                success:function(data){
+                  if(data&data.success == "true"){
+                      alert(data.content);
+                  }
+                },
+                error:function(){
+                    alert("ajax连接失败");
+                }
+            });
+        }
+
+
     </script>
 </body>
 </html>
