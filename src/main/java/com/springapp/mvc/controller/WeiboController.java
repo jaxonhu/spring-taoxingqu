@@ -1,5 +1,6 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.service.WeiboServiceImpl;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -28,19 +29,31 @@ public class WeiboController {
        String content = URLDecoder.decode(request.getParameter("content"),"UTF-8");
        JSONObject json  = new JSONObject();
        System.out.println(content);
+
 //       response.setCharacterEncoding("utf-8");
 //       response.getWriter().write("{\"成功接收\":true }");
 //       response.getWriter().flush();
-      Map<String,Object> modelMap = new HashMap<String, Object>(3);
-      modelMap.put("total","1");
-      modelMap.put("data", content);
-      modelMap.put("success", "true");
-       try{
-           json.put("content",content);
-           json.put("result","success");
-       }catch(JSONException e){
-           System.out.println(e);
-       }
+       Map<String,Object> modelMap = new HashMap<String, Object>(7);
+       modelMap.put("tao_id",124514);
+       modelMap.put("content", content);
+       modelMap.put("thumb_on",3);
+       modelMap.put("time","2015-6-25");
+       modelMap.put("user_id",132456);
+       modelMap.put("interest_id",978978);
+       modelMap.put("picture_id","C:/");
+       /*
+       此处调用service层
+        */
+
+       new WeiboServiceImpl().WeiboPublish(modelMap);
+
+
+//       try{
+//           json.put("content",content);
+//           json.put("result","success");
+//       }catch(JSONException e){
+//           System.out.println(e);
+//       }
         return modelMap;
     }
 }

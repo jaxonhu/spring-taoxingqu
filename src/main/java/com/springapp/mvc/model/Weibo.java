@@ -11,12 +11,20 @@ public class Weibo implements Serializable {
     public String wb_content;//微博内容
     public String picture_id;//图片url
     public int thumb_on;//点赞个数
+    public String time;
+    public String user_id;
+    public String interest_id;
 
-    public Weibo(String tao_id, String wb_content, String picture_id, int thumb_on) {
+
+    public Weibo(String tao_id, String wb_content, String picture_id,
+                 int thumb_on, String time, String user_id, String interest_id) {
         this.tao_id = tao_id;
         this.wb_content = wb_content;
         this.picture_id = picture_id;
         this.thumb_on = thumb_on;
+        this.time = time;
+        this.user_id = user_id;
+        this.interest_id = interest_id;
     }
 
     public String getTao_id() {
@@ -49,5 +57,29 @@ public class Weibo implements Serializable {
 
     public void setThumb_on(int thumb_on) {
         this.thumb_on = thumb_on;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getInterest_id() {
+        return interest_id;
+    }
+
+    public void setInterest_id(String interest_id) {
+        this.interest_id = interest_id;
     }
 }

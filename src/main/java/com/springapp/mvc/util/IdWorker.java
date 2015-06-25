@@ -38,7 +38,7 @@ public class IdWorker {
         } else {
             this.sequence = 0;
         }
-        if (timestamp < this.lastTimestamp) {
+        if (timestamp < this.lastTimestamp){
             try {
                 throw new Exception(
                         String.format(
@@ -70,8 +70,8 @@ public class IdWorker {
         return System.currentTimeMillis();
     }
 
-//    public static void main(String[] args){
-//        IdWorker worker2 = new IdWorker(2);
-//        System.out.println(worker2.nextId());
-//    }
+    public static void main(String[] args){
+        IdWorker worker2 = new IdWorker(1);
+        System.out.println(worker2.nextId());
+    }
 }
