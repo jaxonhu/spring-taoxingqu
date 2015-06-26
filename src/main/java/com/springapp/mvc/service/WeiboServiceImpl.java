@@ -21,6 +21,7 @@ public class WeiboServiceImpl  implements WeiboService{
     public Date date;
     public SimpleDateFormat dateFormat;
     public long time_num;
+    public int isNextPageExist;
     //发表微博
     @Override
     public boolean WeiboPublish(Map<String,Object> map) {
@@ -55,11 +56,16 @@ public class WeiboServiceImpl  implements WeiboService{
     @Override
     public List<Weibo> GetPageByIndex(int index, String tag,String user_id) {
 
-        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords(tag,user_id);
         List<Weibo> results;
-        PageModel<Weibo> pageModel= new PageModel<Weibo>(index,records);
+        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords(tag,user_id);
+        PageModel<Weibo> pageModel= new PageModel<Weibo>(index,records,5);
         results = pageModel.getPageList();
-
+        isNextPageExist = pageModel.isNextPageExist();
         return results;
+    }
+
+    @Override
+    public int IsNextPageExist() {
+        return isNextPageExist;
     }
 }

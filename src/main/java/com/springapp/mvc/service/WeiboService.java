@@ -12,4 +12,5 @@ public interface WeiboService {
     public boolean WeiboPublish(Map<String,Object> map);//发表微博
     public List<Weibo> GetWeibo(int index);//获取微博列表
     public List<Weibo> GetPageByIndex(int index,String tag,String user_id);
+    public int IsNextPageExist();
 }

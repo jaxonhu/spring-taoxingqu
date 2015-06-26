@@ -106,6 +106,11 @@
                 </div>
             </c:forEach>
 
+            <div class="main_footer">
+                <a href="" class="prev_footer"  >上一页</a>
+                <!--<span class="center_footer"></span>-->
+                <a href="" class="next_footer"  >下一页</a>
+            </div>
 
         </div>
         <div class="main_right">
@@ -133,6 +138,19 @@
 
     </div>
     <script>
+        window.onload = init(${index},${isNextPage});
+        function init(index,isNextPage){
+
+            var prev = document.getElementsByClassName("prev_footer");
+            var next = document.getElementsByClassName("next_footer");
+            if(index == 1){
+
+            }else{
+
+            }
+
+
+        }
         function load_comments(index) {
 //            var commentlist = doucument.getElementById(index);
             var commentlist = document.getElementsByClassName("comments");

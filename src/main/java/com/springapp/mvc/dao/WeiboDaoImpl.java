@@ -70,7 +70,7 @@ public class WeiboDaoImpl extends BaseDao implements WeiboDao  {
 
         String sql = "select tao_id,picture_id,thumb_on,time,user_id,interest_id,content from weibo " +
                 "where user_id in ( select user_id1 from following where user_id2 = '"+user_id+"') " +
-                "and interest_id = '"+tag+"'";
+                "and interest_id = '"+tag+"'"+"ORDER BY time DESC";
         this.getaConnection();
         try{
             ResultSet rs = aStatement.executeQuery(sql);

@@ -30,12 +30,15 @@ public class TestWeibo {
 //                "where user_id in ( select user_id1 from following where user_id2 = '"+user_id+"') " +
 //                "and interest_id = '"+tag+"'";
 //        System.out.println(sql);
-        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords("basketball","kkk");
-        Iterator it = records.iterator();
+//        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords("basketball","kkk");
+        WeiboServiceImpl wbService = new WeiboServiceImpl();
+        List<Weibo> records2 = wbService.GetPageByIndex(2,"basketball","kkk");
+        int isNext = wbService.IsNextPageExist();
+        Iterator it = records2.iterator();
         while(it.hasNext()){
             Weibo wb = (Weibo)it.next();
-            System.out.println(wb.user_id);
+            System.out.println(wb.user_id+wb.time);
         }
-
+        System.out.println(isNext);
     }
 }
