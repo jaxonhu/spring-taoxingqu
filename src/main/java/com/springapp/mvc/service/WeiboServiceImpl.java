@@ -5,6 +5,7 @@ import com.springapp.mvc.dao.WeiboDaoImpl;
 import com.springapp.mvc.model.Weibo;
 import com.springapp.mvc.util.DuplicateException;
 import com.springapp.mvc.util.IdWorker;
+import com.springapp.mvc.util.PageModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,5 +50,16 @@ public class WeiboServiceImpl  implements WeiboService{
     public List<Weibo> GetWeibo(int index) {
 
         return null;
+    }
+
+    @Override
+    public List<Weibo> GetPageByIndex(int index, String tag,String user_id) {
+
+        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords(tag,user_id);
+        List<Weibo> results;
+        PageModel<Weibo> pageModel= new PageModel<Weibo>(index,records);
+        results = pageModel.getPageList();
+
+        return results;
     }
 }

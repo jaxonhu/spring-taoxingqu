@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.DataFormatException;
@@ -53,6 +54,42 @@ public class WeiboDaoImpl extends BaseDao implements WeiboDao  {
         }
         this.terminate();
         return null;
+    }
+
+    @Override
+    public List<Weibo> getWeiboRecords(String tag, String user_id) {
+        List<Weibo> records = new ArrayList<Weibo>();
+
+        String tao_id;
+        String picture_id;
+        int thumb_on;
+        String time;
+        String userid;
+        String content;
+        String interest_id;
+
+        String sql = "select tao_id,picture_id,thumb_on,time,user_id,interest_id,content from weibo " +
+                "where user_id in ( select user_id1 from following where user_id2 = '"+user_id+"') " +
+                "and interest_id = '"+tag+"'";
+        this.getaConnection();
+        try{
+            ResultSet rs = aStatement.executeQuery(sql);
+            while(rs.next()){
+                tao_id = rs.getString(1);
+                picture_id = rs.getString(2);
+                thumb_on = rs.getInt(3);
+                time = rs.getString(4);
+                user_id = rs.getString(5);
+                interest_id = rs.getString(6);
+                content = rs.getString(7);
+                Weibo wb = new Weibo(tao_id,content,picture_id,thumb_on,time,user_id,interest_id);
+                records.add(wb);
+            }
+            rs.close();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return records;
     }
 
     @Override
