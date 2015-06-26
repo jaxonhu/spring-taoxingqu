@@ -6,6 +6,8 @@ import com.springapp.mvc.model.Weibo;
 import com.springapp.mvc.util.DuplicateException;
 import com.springapp.mvc.util.IdWorker;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,22 +17,26 @@ import java.util.Map;
 public class WeiboServiceImpl  implements WeiboService{
 
     public WeiboDao weiboDao = new WeiboDaoImpl();
-
+    public Date date;
+    public SimpleDateFormat dateFormat;
+    public long time_num;
     //发表微博
     @Override
     public boolean WeiboPublish(Map<String,Object> map) {
 
-        String tao_id = (String)map.get("tao_id");
+        String tao_id;
         String content = (String)map.get("content");
         int thumb_on = (Integer)map.get("thumb_on");
         String time = (String)map.get("time");
         String user_id = (String)map.get("user_id");
         String interest_id = (String)map.get("interest_id");
         String picture_id = (String)map.get("picture_id");
-
-        IdWorker idWorker = new IdWorker(2);
-        //tao_id = idWorker.nextId();
-        Weibo wb = new Weibo(tao_id,content,picture_id,thumb_on,time,user_id,interest_id);
+        date = new Date();
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = dateFormat.format(date);
+        time_num = date.getTime();
+        tao_id = user_id + time_num;
+        Weibo wb = new Weibo(tao_id,content,picture_id,thumb_on,currentTime,user_id,interest_id);
         try{
             weiboDao.saveWeibo(wb);
         }catch (DuplicateException e){

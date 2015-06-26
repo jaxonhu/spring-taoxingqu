@@ -22,7 +22,6 @@ import java.util.zip.DataFormatException;
  */
 public class WeiboDaoImpl extends BaseDao implements WeiboDao  {
 
-    public Date date;
     public String currentTime;
     public SimpleDateFormat dateFormat;
     public String tao_id; //微博id
@@ -41,12 +40,7 @@ public class WeiboDaoImpl extends BaseDao implements WeiboDao  {
         wb_content = wb.wb_content;
         picture_id = wb.picture_id;
         thumb_on = wb.thumb_on;
-        wb_content = "asdasda";
-
-        date = new Date();
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        currentTime = dateFormat.format(date);
-
+        currentTime = wb.time;
         user_id = wb.user_id;
         interest_id = wb.interest_id;
 

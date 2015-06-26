@@ -27,6 +27,13 @@ public class WeiboController {
 
        ModelAndView mv = new ModelAndView();
        String content = URLDecoder.decode(request.getParameter("content"),"UTF-8");
+       String picture_id = request.getParameter("pic_url");
+       String str_thumb_on = request.getParameter("thumb_on");
+       int thumb_on = Integer.parseInt(str_thumb_on);
+       String user_id = request.getParameter("user_id");
+       String interest_id = request.getParameter("interest_id");
+
+
        JSONObject json  = new JSONObject();
        System.out.println(content);
 
@@ -34,13 +41,13 @@ public class WeiboController {
 //       response.getWriter().write("{\"成功接收\":true }");
 //       response.getWriter().flush();
        Map<String,Object> modelMap = new HashMap<String, Object>(7);
-       modelMap.put("tao_id",124514);
+       modelMap.put("tao_id","");
        modelMap.put("content", content);
-       modelMap.put("thumb_on",3);
-       modelMap.put("time","2015-6-25");
-       modelMap.put("user_id",132456);
-       modelMap.put("interest_id",978978);
-       modelMap.put("picture_id","C:/");
+       modelMap.put("thumb_on",thumb_on);
+       modelMap.put("time","");
+       modelMap.put("user_id",user_id);
+       modelMap.put("interest_id",interest_id);
+       modelMap.put("picture_id",picture_id);
        /*
        此处调用service层
         */
@@ -56,4 +63,5 @@ public class WeiboController {
 //       }
         return modelMap;
     }
+
 }

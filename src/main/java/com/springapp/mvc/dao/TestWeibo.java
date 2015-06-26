@@ -14,17 +14,16 @@ public class TestWeibo {
     public static void main(String[] args){
         String content="啊啊啊啊啊啊啊啊啊啊啊啊啊啊";
         Map<String,Object> modelMap = new HashMap<String, Object>(7);
-        modelMap.put("tao_id","IAMyours1995");
-        modelMap.put("content", content);
+        modelMap.put("tao_id","");
+        modelMap.put("content", "呵呵");
         modelMap.put("thumb_on",3);
         modelMap.put("time","");
-        modelMap.put("user_id",132456);
-        modelMap.put("interest_id",978978);
+        modelMap.put("user_id","Iamyours1995");
+        modelMap.put("interest_id","12312311");
         modelMap.put("picture_id","C:/");
        /*
        此处调用service层
         */
-
         new WeiboServiceImpl().WeiboPublish(modelMap);
     }
 }

@@ -31,7 +31,7 @@
                 <li style="font-size: 13px;">
                     <a href="">
                         <i class="fa fa-user fa-2x"></i>
-                        <span class="header_span" style="color: #333;">IAMyours1995</span>
+                        <span class="header_span" id="user_id" style="color: #333;">IAMyours1995</span>
                     </a>
                 </li>
             </nav>
@@ -163,21 +163,25 @@
         }
         function WeiboPublish(index){
             var content = document.getElementsByClassName("input_msg");
+            var user_id = document.getElementById("user_id").innerHTML;
+            var interest_id = "basketball";
             var weibo = content[index].value;
-            var pic_url = "";
+            var pic_url = "C:/";
             var thumb_on = 0;
             var data = {
                 content:weibo,
                 pic_url:pic_url,
-                thumb_on:thumb_on
-            }
+                thumb_on:thumb_on,
+                user_id:user_id,
+                interest_id:interest_id
+            };
             $.ajax({
                 type:"POST",
                 url:"<%=request.getContextPath()%>/weibo/publish",
                 data:data,
                 success:function(data){
                   if(data){
-                      alert(data.data);
+                      alert(data.content);
                   }
                 },
                 error:function(){
