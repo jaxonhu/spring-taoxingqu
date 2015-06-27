@@ -25,12 +25,14 @@
             <div class="login_form">
                 <span class="head_span">注册淘兴趣</span>
                 <form action="" class="myform">
-                    <input type="text" class="register_account" placeholder="请输入用户名"/>
+                    <input type="text" class="register_account" name="user_name" placeholder="请输入用户名"/>
                     <span class="msg">用户名不能超过七个字符</span>
-                    <input type="password" class="register_pwd" placeholder="请输入密码"/>
+                    <input type="password" class="register_pwd" name="user_pwd" placeholder="请输入密码"/>
                     <span class="msg">密码长度在6到12位之间</span>
-                    <input type="password" class="register_pwd"placeholder="请输入确认密码"/>
+                    <input type="password" class="register_pwd"  placeholder="请输入确认密码"/>
                     <span class="msg">确认密码长度在6到12位之间</span>
+                    <input type="email" class="register_account" name="email" placeholder="请输入邮箱"/>
+                    <span class="msg">输入邮箱</span>
                     <button type="submit" class="click_login">注册</button>
                 </form>
                 <!--<span>还没账号？赶快注册！</span>-->

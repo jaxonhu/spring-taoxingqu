@@ -34,5 +34,13 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		window.onload=init(${result});
+		function init(message){
+			if(message == "error"){
+				alert("用户名或密码错误，请重新登录");
+			}
+		}
+	</script>
 </body>
 </html>

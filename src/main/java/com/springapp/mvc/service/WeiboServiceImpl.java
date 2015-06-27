@@ -45,6 +45,7 @@ public class WeiboServiceImpl  implements WeiboService{
             System.out.println(e);
         }
         return false;
+
     }
 
     @Override
