@@ -31,7 +31,7 @@
                 <li style="font-size: 13px;">
                     <a href="">
                         <i class="fa fa-user fa-2x"></i>
-                        <span class="header_span" id="user_id" style="color: #333;">IAMyours1995</span>
+                        <span class="header_span" id="user_id" style="color: #333;">${user_name}</span>
                     </a>
                 </li>
             </nav>
@@ -143,6 +143,10 @@
 
             var prev = document.getElementsByClassName("prev_footer");
             var next = document.getElementsByClassName("next_footer");
+
+            setCookie("user_name","${user_name}",365);
+
+
             if(index == 1){
                 addClass(prev[0],"unclick");
                 prev[0].href = 'javascript:void(0);';
@@ -150,16 +154,16 @@
                     addClass(next[0],"unclick");
                     next[0].href = 'javascript:void(0);';
                 }else{
-                    next[0].href = "<%=request.getContextPath()%>/homes?page="+(index+1);
+                    next[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index+1);
                 }
             }else{
                 if(!isNextPage){
                     addClass(next[0],"unclick");
                     next[0].href = 'javascript:void(0);';
-                    prev[0].href = "<%=request.getContextPath()%>/homes?page="+(index-1);
+                    prev[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index-1);
                 }else{
-                    prev[0].href = "<%=request.getContextPath()%>/homes?page="+(index-1);
-                    next[0].href = "<%=request.getContextPath()%>/homes?page="+(index+1);
+                    prev[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index-1);
+                    next[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index+1);
                 }
             }
 
@@ -178,6 +182,13 @@
                     eventTarget["on"+eventType]=eventHandler;
                 }
             }
+        }
+
+        function setCookie(name,value,expirdays){
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate()+expirdays);
+            document.cookie=name+ "=" +escape(value)+
+            ((expirdays==null) ? "" : ";expires="+exdate.toGMTString());
         }
 
         function unclick(obj){

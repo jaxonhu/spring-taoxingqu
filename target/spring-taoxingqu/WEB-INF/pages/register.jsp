@@ -24,7 +24,7 @@
 
             <div class="login_form">
                 <span class="head_span">注册淘兴趣</span>
-                <form action="" class="myform">
+                <form action="<%=request.getContextPath()%>/register.do" method="post" class="myform">
                     <input type="text" class="register_account" name="user_name" placeholder="请输入用户名"/>
                     <span class="msg">用户名不能超过七个字符</span>
                     <input type="password" class="register_pwd" name="user_pwd" placeholder="请输入密码"/>
@@ -44,5 +44,17 @@
         </div>
     </div>
 </div>
+<script>
+    window.onload=init(${result});
+    function init(message){
+        if(message == "error"){
+            alert("用户名或密码错误，请重新登录");
+        }
+        if(message == "register"){
+            alert("注册成功，请重新登录");
+        }
+
+    }
+</script>
 </body>
 </html>

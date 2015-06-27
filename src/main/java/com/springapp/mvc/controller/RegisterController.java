@@ -16,10 +16,20 @@ import java.util.Map;
  */
 @Controller
 public class RegisterController {
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ModelAndView setView(HttpServletRequest request,HttpServletResponse response){
+
+    @RequestMapping("/register")
+    public ModelAndView start(){
         ModelAndView mv = new ModelAndView();
-        String  user_name = request.getParameter("user_name");
+        System.out.println("success");
+        mv.setViewName("register");
+        return mv;
+    }
+
+
+    @RequestMapping(value = "/register.do",method = RequestMethod.POST)
+    public ModelAndView setView(HttpServletRequest request,HttpServletResponse response)throws Exception{
+        ModelAndView mv = new ModelAndView();
+        String  user_name = new String(request.getParameter("user_name").getBytes("ISO8859-1"), "UTF-8");
         String  user_pwd = request.getParameter("user_pwd");
         String  email = request.getParameter("email");
 
@@ -31,8 +41,10 @@ public class RegisterController {
         Boolean result = new UserServiceImpl().UserRegister(modelMap);
 
         if(result){
-            mv.setViewName("home");
+            mv.addObject("message","register");
+            mv.setViewName("login");
         }else{
+            mv.addObject("message","error");
             mv.setViewName("register");
         }
 
