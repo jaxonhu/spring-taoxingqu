@@ -475,10 +475,10 @@ i{
     white-space: nowrap;
     font-size: 12px;
     background-color: #fff;
-    transition:background-color 0.2s;
-    -moz-transition:background-color 0.2s;
-    -webkit-transition:background-color 0.2s;
-    -o-transition:background-color 0.2s;
+    /*transition:background-color 0.2s;*/
+    /*-moz-transition:background-color 0.2s;*/
+    /*-webkit-transition:background-color 0.2s;*/
+    /*-o-transition:background-color 0.2s;*/
 }
 .next_footer{
     border-left-style: solid;
@@ -498,10 +498,10 @@ i{
     white-space: nowrap;
     font-size: 12px;
     background-color: #fff;
-    transition:background-color 0.2s;
-    -moz-transition:background-color 0.2s;
-    -webkit-transition:background-color 0.2s;
-    -o-transition:background-color 0.2s;
+    /*transition:background-color 0.2s;*/
+    /*-moz-transition:background-color 0.2s;*/
+    /*-webkit-transition:background-color 0.2s;*/
+    /*-o-transition:background-color 0.2s;*/
 }
 
 .center_footer{
@@ -509,10 +509,15 @@ i{
     height: 100%;
     display: inline-block;
 }
-.next_footer:hover{
-    background-color: #eb7350;
-}
-.prev_footer:hover{
-    background-color: #eb7350;
-}
+/*.next_footer:hover{*/
+    /*background-color: #eb7350;*/
+/*}*/
+/*.prev_footer:hover{*/
+    /*background-color: #eb7350;*/
+/*}*/
 
+.unclick{
+    color: #aaaaaa;
+    background-color:#fff;
+    cursor: default;
+}

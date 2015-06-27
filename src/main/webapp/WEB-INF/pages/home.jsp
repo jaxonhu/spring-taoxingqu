@@ -107,7 +107,7 @@
             </c:forEach>
 
             <div class="main_footer">
-                <a href="" class="prev_footer"  >上一页</a>
+                <a href="" class="prev_footer"   >上一页</a>
                 <!--<span class="center_footer"></span>-->
                 <a href="" class="next_footer"  >下一页</a>
             </div>
@@ -144,13 +144,55 @@
             var prev = document.getElementsByClassName("prev_footer");
             var next = document.getElementsByClassName("next_footer");
             if(index == 1){
-
+                addClass(prev[0],"unclick");
+                prev[0].href = 'javascript:void(0);';
+                if(!isNextPage){
+                    addClass(next[0],"unclick");
+                    next[0].href = 'javascript:void(0);';
+                }else{
+                    next[0].href = "<%=request.getContextPath()%>/homes?page="+(index+1);
+                }
             }else{
-
+                if(!isNextPage){
+                    addClass(next[0],"unclick");
+                    next[0].href = 'javascript:void(0);';
+                    prev[0].href = "<%=request.getContextPath()%>/homes?page="+(index-1);
+                }else{
+                    prev[0].href = "<%=request.getContextPath()%>/homes?page="+(index-1);
+                    next[0].href = "<%=request.getContextPath()%>/homes?page="+(index+1);
+                }
             }
 
 
         }
+        function addEvent(eventTarget,eventType,eventHandler){
+            if(eventTarget.addEventListener){
+                eventTarget.addEventListener(eventType,eventHandler,false);
+                alert("hello");
+            }else{
+                alert("world");
+                if(eventTarget.attachEvent){
+                    eventType="on"+eventType;
+                    eventTarget.attachEvent(eventType,eventHandler);
+                }else{
+                    eventTarget["on"+eventType]=eventHandler;
+                }
+            }
+        }
+
+        function unclick(obj){
+
+            return false;
+        }
+
+        function addClass(obj, cls) {
+            if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+        }
+
+        function hasClass(obj, cls) {
+            return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+        }
+
         function load_comments(index) {
 //            var commentlist = doucument.getElementById(index);
             var commentlist = document.getElementsByClassName("comments");

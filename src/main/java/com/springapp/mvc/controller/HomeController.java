@@ -46,4 +46,22 @@ public class HomeController {
 
         return mv;
     }
+
+    @RequestMapping(value = "/homes",method=RequestMethod.GET)
+    public ModelAndView setPage(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse){
+        ModelAndView mv = new ModelAndView();
+
+        String page = httpServletRequest.getParameter("page");
+        int index = Integer.parseInt(page);
+
+        WeiboServiceImpl wbService = new WeiboServiceImpl();
+        List<Weibo> records2 = wbService.GetPageByIndex(index,"basketball","kkk");
+        int isNext = wbService.IsNextPageExist();
+
+        mv.addObject("weiboList",records2);
+        mv.addObject("isNextPage",isNext);
+        mv.addObject("index",index);
+        mv.setViewName("home");
+        return mv;
+    }
 }
