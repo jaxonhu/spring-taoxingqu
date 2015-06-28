@@ -55,8 +55,6 @@ public class LoginController {
         return mv;
     }
 }
-
-
       /*
             这里把姓名，账号存入session
              */
