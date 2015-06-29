@@ -46,7 +46,7 @@
                 <img  src="<c:url value="/resources/image/face2.jpg"/>" alt=""/>
             </div>
             <div class="face_name">
-                <span>IAMyours1995</span>
+                <span>${user_name}</span>
             </div>
             <div class="follow">
                 <a class="follow_btn" href="">关注</a>

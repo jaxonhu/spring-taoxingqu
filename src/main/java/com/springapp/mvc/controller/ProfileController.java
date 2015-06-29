@@ -29,9 +29,7 @@ public class ProfileController {
         mv.addObject("isNextPage",isNext);
         mv.addObject("user_name",user_name);
         mv.addObject("index",index);
-
         mv.setViewName("profile");
-
         return mv;
     }
 }
