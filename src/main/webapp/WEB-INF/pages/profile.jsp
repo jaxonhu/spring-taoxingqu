@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<c:url value="/resources/style/profile.css"/> "/>
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-    <title></title>
+    <script src="<c:url value="/resources/JS/jquery-1.11.3.js"/>"></script>
+    <title>${user_name}的个人主页</title>
 </head>
 <body>
 <div class="header clearfix">
@@ -29,7 +30,7 @@
             <li style="font-size: 13px;">
                 <a href="">
                     <i class="fa fa-user fa-2x"></i>
-                    <span class="header_span" style="color: #333;">IAMyours1995</span>
+                    <span class="header_span" style="color: #333;">${user_name}</span>
                 </a>
             </li>
         </nav>
@@ -41,7 +42,7 @@
 
     </div>
     <div class="main_center">
-        <div class="main_center_header" style="background-image: url('./image/001.jpg')">
+        <div class="main_center_header" style="background-image: url('../image/001.jpg')">
             <div class="face_header">
                 <img  src="<c:url value="/resources/image/face2.jpg"/>" alt=""/>
             </div>
@@ -49,7 +50,7 @@
                 <span>${user_name}</span>
             </div>
             <div class="follow">
-                <a class="follow_btn" href="">关注</a>
+                <a class="follow_btn" onclick="following('${user_name}');" href="javascript:void(0);">关注</a>
             </div>
         </div>
 
@@ -131,13 +132,8 @@
         }
     }
     function init(index,isNextPage){
-
         var prev = document.getElementsByClassName("prev_footer");
         var next = document.getElementsByClassName("next_footer");
-
-        setCookie("user_name","${user_name}",365);
-
-
         if(index == 1){
             addClass(prev[0],"unclick");
             prev[0].href = 'javascript:void(0);';
@@ -174,6 +170,32 @@
         }
     }
 
+    function following(user_name){
+        var user_name = document.getElementsByClassName("header_span")[1].innerHTML;
+        var data = {
+            user_name:user_name
+        }
+        $.ajax({
+            type:"POST",
+            url:"<%=request.getContextPath()%>/following",
+            data:data,
+            success:function(data){
+                if(data){
+                    alert("关注成功");
+                }
+            },
+            error:function(){
+                alert("ajax连接失败");
+            }
+        });
+    }
+    function addClass(obj, cls) {
+        if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+    }
+
+    function hasClass(obj, cls) {
+        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+    }
 
 </script>
 
