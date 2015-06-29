@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/home.css"/> "/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/font-awesome.css"/> "/>
+    <link rel="stylesheet" href="<c:url value="/resources/style/listmenu.css"/>"/>
+
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
     <script src="<c:url value="/resources/JS/jquery-1.11.3.js"/>"></script>
     <title></title>
@@ -39,7 +41,16 @@
     </div>
     <div class="main_frame clearfix">
         <div class="main_left">
-
+            <nav class="left_tag">
+                <li><a href="">互联网</a></li>
+                <li><a href="">经济</a></li>
+                <li><a href="">篮球</a></li>
+                <li><a href="">时政</a></li>
+                <li><a href="">足球</a></li>
+                <li><a href="">情感</a></li>
+                <li><a href="">大学生活</a></li>
+                <li><a href="">历史</a></li>
+            </nav>
         </div>
         <div class="main_center">
             <div class="send_msg">
@@ -54,7 +65,19 @@
                                 <span class="send_img" style="font-size: 14px;">图片</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="javascript:void(0);"  onclick="load_tags();" style="text-decoration: none; color: #0f1012;">
+                                <i class="fa fa-tags"></i>
+                                <span class="send_img" style="font-size: 14px;">分类</span>
+                            </a>
+                        </li>
                     </nav>
+
+                    <div class="tags clearfix" id="tag">
+                        <a href="">互联网</a><a href="">经济</a><a href="">篮球</a><a href="">时政</a>
+                        <a href="">足球</a> <a href="">情感</a><a href="">大学生活</a><a href="">历史</a>
+                    </div>
+
                     <a href="" class="send_button" onclick="WeiboPublish(0); return false;" >发布</a>
                 </div>
             </div>
@@ -211,6 +234,17 @@
                 commentlist[index].style.display = "block";
             } else {
                 commentlist[index].style.display = "none";
+            }
+        }
+        function load_tags(){
+            var ob = document.getElementById('tag');
+            var demo = window.getComputedStyle(ob,null);
+            if(demo.left == "270px"){
+                ob.style.left = "-999px"
+                ob.style.opacity = "0";
+            }else{
+                ob.style.left = "270px";
+                ob.style.opacity = "1";
             }
         }
         function WeiboPublish(index){
