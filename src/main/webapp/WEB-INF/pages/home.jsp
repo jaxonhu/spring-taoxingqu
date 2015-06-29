@@ -62,13 +62,13 @@
                 <div class="item_msg">
                     <div class="detail_msg">
                         <div class="face">
-                            <a href="">
+                            <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${weibo.user_id}">
                                 <img src="<c:url value="/resources/image/face.jpg"/> " alt=""/>
                             </a>
                         </div>
 
                         <div class="detail">
-                            <div class="detail_name"><a href="">${weibo.user_id}</a></div>
+                            <div class="detail_name"><a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${weibo.user_id}">${weibo.user_id}</a></div>
                             <div class="detail_content">${weibo.wb_content}</div>
                         </div>
                     </div>

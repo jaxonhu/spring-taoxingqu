@@ -32,7 +32,7 @@ public class TestWeibo {
 //        System.out.println(sql);
 //        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords("basketball","kkk");
         WeiboServiceImpl wbService = new WeiboServiceImpl();
-        List<Weibo> records2 = wbService.GetPageByIndex(2,"basketball","kkk");
+        List<Weibo> records2 = wbService.GetPageByUser(1,"","胡家煊");
         int isNext = wbService.IsNextPageExist();
         Iterator it = records2.iterator();
         while(it.hasNext()){

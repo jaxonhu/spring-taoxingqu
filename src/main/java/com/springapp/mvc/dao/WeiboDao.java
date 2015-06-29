@@ -12,4 +12,5 @@ public interface WeiboDao {
     public Boolean saveWeibo(Weibo wb) throws DuplicateException;
     public Boolean getWeiboList(int index);
     public List<Weibo> getWeiboRecords(String tag,String user_id);
+    public List<Weibo> getWeiboRecordsByUser(String tag,String user_id);
 }

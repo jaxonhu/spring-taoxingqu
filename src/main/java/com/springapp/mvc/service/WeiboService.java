@@ -11,6 +11,7 @@ import java.util.Map;
 public interface WeiboService {
     public boolean WeiboPublish(Map<String,Object> map);//发表微博
     public List<Weibo> GetWeibo(int index);//获取微博列表
-    public List<Weibo> GetPageByIndex(int index,String tag,String user_id);
+    public List<Weibo> GetPageByIndex(int index,String tag,String user_id);//获取全部微博
+    public List<Weibo> GetPageByUser(int index,String tag,String user_id);//获取自己的微博
     public int IsNextPageExist();
 }

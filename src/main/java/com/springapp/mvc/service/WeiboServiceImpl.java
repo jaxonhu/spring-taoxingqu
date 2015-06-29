@@ -69,4 +69,17 @@ public class WeiboServiceImpl  implements WeiboService{
     public int IsNextPageExist() {
         return isNextPageExist;
     }
+
+
+    @Override
+    public List<Weibo> GetPageByUser(int index, String tag, String user_id) {
+
+
+        List<Weibo> results;
+        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords(tag,user_id);
+        PageModel<Weibo> pageModel= new PageModel<Weibo>(index,records,5);
+        results = pageModel.getPageList();
+        isNextPageExist = pageModel.isNextPageExist();
+        return results;
+    }
 }
