@@ -1,9 +1,12 @@
 package com.springapp.mvc.controller;
 import com.springapp.mvc.dao.WeiboDaoImpl;
 import com.springapp.mvc.model.Weibo;
+import com.springapp.mvc.service.FollowService;
+import com.springapp.mvc.service.FollowServiceImpl;
 import com.springapp.mvc.service.WeiboServiceImpl;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,22 +57,45 @@ public class HomeController {
     public ModelAndView setPage(HttpServletRequest httpServletRequest,Model model,HttpSession session) throws Exception{
         ModelAndView mv = new ModelAndView();
 //        String user_name = new String(httpServletRequest.getParameter("user_name").getBytes("ISO8859-1"), "UTF-8");
-        String user_name = (String)session.getAttribute("user_name");
+        String user_name;
         String page = httpServletRequest.getParameter("page");
 
-        String tag = httpServletRequest.getParameter("tag");
+        String tag  = httpServletRequest.getParameter("tag");
+        String name = (String)session.getAttribute("user_name");
+        if(tag.equals("")){
+            user_name = (String)session.getAttribute("user_name");
+        }else{
+            tag =new String(tag.getBytes("ISO8859-1"),"UTF-8");
+            user_name = "";
+        }
 
         int index = Integer.parseInt(page);
 
         WeiboServiceImpl wbService = new WeiboServiceImpl();
+        FollowService followService = new FollowServiceImpl();
         List<Weibo> records2 = wbService.GetPageByIndex(index,tag,user_name);
         int isNext = wbService.IsNextPageExist();
+        int weibo_num = wbService.GetWeiboNum(name);
+        int follow_num = followService.GetFollowNum(name);
+        int fans_num = followService.GetFansNum(name);
 
         mv.addObject("weiboList",records2);
         mv.addObject("isNextPage",isNext);
         mv.addObject("user_name",user_name);
         mv.addObject("index",index);
+        mv.addObject("tag",tag);
+        mv.addObject("weibo_num",weibo_num);
+        mv.addObject("follow_num",follow_num);
+        mv.addObject("fans_num",fans_num);
         mv.setViewName("home");
         return mv;
     }
+
+    @RequestMapping(value = "/homes/{tag}")
+    public ModelAndView setPageByTag(@PathVariable String tag){
+        ModelAndView mv = new ModelAndView();
+
+        return mv;
+    }
+
 }

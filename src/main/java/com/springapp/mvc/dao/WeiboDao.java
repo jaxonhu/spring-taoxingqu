@@ -13,4 +13,5 @@ public interface WeiboDao {
     public Boolean getWeiboList(int index);
     public List<Weibo> getWeiboRecords(String tag,String user_id);
     public List<Weibo> getWeiboRecordsByUser(String tag,String user_id);
+    public int getWeiboNum(String user_id);
 }

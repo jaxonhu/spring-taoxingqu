@@ -14,4 +14,6 @@ public interface WeiboService {
     public List<Weibo> GetPageByIndex(int index,String tag,String user_id);//获取全部微博
     public List<Weibo> GetPageByUser(int index,String tag,String user_id);//获取自己的微博
     public int IsNextPageExist();
+    public int GetWeiboNum(String user_id);//获取用户微博数量
+
 }

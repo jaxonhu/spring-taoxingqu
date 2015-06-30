@@ -190,7 +190,7 @@ i{
     position: relative;
     left: 30px;
     height: 30px;
-    width: 60px;
+    width: 200px;
 }
 .send_icon li{
     display: inline-block;
@@ -537,5 +537,13 @@ i{
     width: 100%;
     text-decoration: none;
     text-align: center;
+}
+#weibo_tag{
+    border-radius: 5px;
+
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    color: #fff;
+    background-color: #6ea2d2;
 }
 

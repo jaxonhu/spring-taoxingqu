@@ -76,10 +76,17 @@ public class WeiboServiceImpl  implements WeiboService{
 
 
         List<Weibo> results;
-        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords(tag,user_id);
+        List<Weibo> records = new WeiboDaoImpl().getWeiboRecordsByUser(tag,user_id);
         PageModel<Weibo> pageModel= new PageModel<Weibo>(index,records,5);
         results = pageModel.getPageList();
         isNextPageExist = pageModel.isNextPageExist();
         return results;
+    }
+
+    @Override
+    public int GetWeiboNum(String user_id) {
+        int num = 0;
+        num = weiboDao.getWeiboNum(user_id);
+        return num;
     }
 }

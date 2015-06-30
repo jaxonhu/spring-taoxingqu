@@ -36,20 +36,21 @@
                         <span class="header_span" id="user_id" style="color: #333;">${user_name}</span>
                     </a>
                 </li>
+
             </nav>
         </div>
     </div>
     <div class="main_frame clearfix">
         <div class="main_left">
             <nav class="left_tag">
-                <li><a href="">互联网</a></li>
-                <li><a href="">经济</a></li>
-                <li><a href="">篮球</a></li>
-                <li><a href="">时政</a></li>
-                <li><a href="">足球</a></li>
-                <li><a href="">情感</a></li>
-                <li><a href="">大学生活</a></li>
-                <li><a href="">历史</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=互联网&page=1">互联网</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=经济&page=1">经济</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=篮球&page=1">篮球</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=时政&page=1">时政</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=足球&page=1">足球</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=情感&page=1">情感</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=大学生活&page=1">大学生活</a></li>
+                <li><a href="<%=request.getContextPath()%>/homes?tag=历史&page=1">历史</a></li>
             </nav>
         </div>
         <div class="main_center">
@@ -74,8 +75,14 @@
                     </nav>
 
                     <div class="tags clearfix" id="tag">
-                        <a href="">互联网</a><a href="">经济</a><a href="">篮球</a><a href="">时政</a>
-                        <a href="">足球</a> <a href="">情感</a><a href="">大学生活</a><a href="">历史</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">互联网</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">经济</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">篮球</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">时政</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">足球</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">情感</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">大学生活</a>
+                        <a href="javascript:void(0);" onclick="click_tags(this);">历史</a>
                     </div>
 
                     <a href="" class="send_button" onclick="WeiboPublish(0); return false;" >发布</a>
@@ -139,20 +146,20 @@
         <div class="main_right">
             <div class="person_info">
                 <div class="right_face">
-                    <a href=""><img src="<c:url value="/resources/image/face2.jpg"/> " alt=""/></a>
+                    <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${user_name}"><img src="<c:url value="/resources/image/face2.jpg"/> " alt=""/></a>
 
                 </div>
                 <div class="right_name">
-                    <a href="">IAMyours1995</a>
+                    <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${user_name}">${user_name}</a>
                 </div>
                 <nav class="person_menu">
-                    <li><a href="" style="text-decoration: none;"><strong>44</strong>
+                    <li><a href="" style="text-decoration: none;"><strong>${follow_num}</strong>
                         <span>关注</span></a>
                         </li>
-                    <li><a href=""  style="text-decoration: none;"><strong>44</strong>
+                    <li><a href=""  style="text-decoration: none;"><strong>${fans_num}</strong>
                         <span>粉丝</span></a>
                     </li>
-                    <li><a href=""  style="text-decoration: none;"><strong>44</strong>
+                    <li><a href=""  style="text-decoration: none;"><strong>${weibo_num}</strong>
                         <span>微博</span></a>
                     </li>
                 </nav>
@@ -177,16 +184,16 @@
                     addClass(next[0],"unclick");
                     next[0].href = 'javascript:void(0);';
                 }else{
-                    next[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index+1);
+                    next[0].href = "<%=request.getContextPath()%>/homes?tag=${tag}&page="+(index+1);
                 }
             }else{
                 if(!isNextPage){
                     addClass(next[0],"unclick");
                     next[0].href = 'javascript:void(0);';
-                    prev[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index-1);
+                    prev[0].href = "<%=request.getContextPath()%>/homes?tag=${tag}&page="+(index-1);
                 }else{
-                    prev[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index-1);
-                    next[0].href = "<%=request.getContextPath()%>/homes?tag=&page="+(index+1);
+                    prev[0].href = "<%=request.getContextPath()%>/homes?tag=${tag}&page="+(index-1);
+                    next[0].href = "<%=request.getContextPath()%>/homes?tag=${tag}&page="+(index+1);
                 }
             }
 
@@ -247,10 +254,32 @@
                 ob.style.opacity = "1";
             }
         }
+        function click_tags(Object){
+            alert("hello");
+            alert(Object.innerHTML);
+
+        }
+        function click_tags(Object){
+            var tag_name =Object.innerHTML;
+            var tag = document.getElementById("tag");
+            var a = document.getElementsByClassName("send_bar")[0];
+            var span_tag = document.getElementById("weibo_tag");
+            if(span_tag){
+                span_tag.innerHTML = tag_name;
+            }else{
+                span_tag = document.createElement("span");
+                a.insertBefore(span_tag,tag);
+                span_tag.id = "weibo_tag";
+                span_tag.innerHTML = tag_name;
+            }
+
+
+        }
+
         function WeiboPublish(index){
             var content = document.getElementsByClassName("input_msg");
             var user_id = document.getElementById("user_id").innerHTML;
-            var interest_id = "basketball";
+            var interest_id = document.getElementById("weibo_tag").innerHTML;
             var weibo = content[index].value;
             var pic_url = "C:/";
             var thumb_on = 0;

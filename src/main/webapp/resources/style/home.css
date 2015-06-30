@@ -538,4 +538,12 @@ i{
     text-decoration: none;
     text-align: center;
 }
+#weibo_tag{
+    border-radius: 5px;
+
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    color: #fff;
+    background-color: #6ea2d2;
+}
 
