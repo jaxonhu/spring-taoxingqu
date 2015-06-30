@@ -162,12 +162,16 @@
     function check_cookie(user_name,res){
         var name = getCookie("user_name");
         if( res=="yes" ){
-            var follow = document.getElementsByClassName('follow')[0];
-            follow.setAttribute("class","follow_already");
-            var follow_btn = document.getElementsByClassName("follow_btn")[0];
-            follow_btn.innerHTML="已经关注";
-            follow_btn.setAttribute("onclick","javascript:void(0);");
+            update_follow_btn();
         }
+    }
+
+    function update_follow_btn(){
+        var follow = document.getElementsByClassName('follow')[0];
+        follow.setAttribute("class","follow_already");
+        var follow_btn = document.getElementsByClassName("follow_btn")[0];
+        follow_btn.innerHTML="已经关注";
+        follow_btn.setAttribute("onclick","javascript:void(0);");
     }
 
     function addEvent(eventTarget,eventType,eventHandler){
@@ -213,6 +217,7 @@
             success:function(data){
                 if(data){
                     alert("关注成功");
+                    update_follow_btn();
                 }
             },
             error:function(){
