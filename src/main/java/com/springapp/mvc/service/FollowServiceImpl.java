@@ -3,6 +3,8 @@ package com.springapp.mvc.service;
 import com.springapp.mvc.dao.FollowDao;
 import com.springapp.mvc.dao.FollowDaoImpl;
 import com.springapp.mvc.model.UserPD;
+import com.springapp.mvc.util.PageModel;
+import org.hsqldb.rights.User;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
  */
 public class FollowServiceImpl implements FollowService {
     public FollowDao followDao = new FollowDaoImpl();
+    public int isNextPageExists;
     @Override
     public boolean follow_do(String user_id1, String user_id2) {
 
@@ -27,17 +30,30 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public List<UserPD> GetFollowList(String user_id2) {
+    public List<UserPD> GetFollowList(int index,String user_id2) {
 
+        List<UserPD> results;
         List<UserPD> records = followDao.GetFollowList(user_id2);
-
-        return records;
+        PageModel<UserPD> pageModel = new PageModel<UserPD>(index,records,10);
+        results = pageModel.getPageList();
+        isNextPageExists = pageModel.isNextPageExist();
+        return results;
     }
 
     @Override
-    public List<UserPD> GetFansList(String user_id1) {
+    public List<UserPD> GetFansList(int index,String user_id1) {
+
+        List<UserPD> results;
         List<UserPD> records = followDao.GetFansList(user_id1);
-        return records;
+        PageModel<UserPD> pageModel = new PageModel<UserPD>(index,records,10);
+        results = pageModel.getPageList();
+        isNextPageExists = pageModel.isNextPageExist();
+        return results;
+    }
+
+    @Override
+    public int isNextPageExists() {
+        return isNextPageExists;
     }
 
     @Override

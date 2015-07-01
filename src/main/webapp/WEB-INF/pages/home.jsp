@@ -103,25 +103,26 @@
                         </div>
                     </div>
 
-                    <div class="handler_msg">
+                    <div class="handler_msg" id="${weibo.tao_id}">
                         <nav>
                             <a href="" onclick="return false;"><li style="font-size:17px;"><i class="fa fa-thumbs-o-up" ><span style="font-size: 12px">${weibo.thumb_on}</span></i>
                             </li></a>
                             <a href="" onclick="return false;" ><li style="font-size:17px;"><i class="fa fa-thumbs-o-down"><span style="font-size: 12px">11</span></i>
                             </li></a>
-                            <a href="" onclick="load_comments(${vs.index});return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
+                            <a href="" onclick="load_comments(${vs.index},'${weibo.tao_id}');return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
                         </nav>
                     </div>
 
                     <div class="comments" style="display: none;">
                         <div class="give_comment clearfix">
                             <div class="comment_input">
-                                <textarea name="comment"  cols="30" rows="10"></textarea>
+                                <textarea name="comment" id="content_comment" cols="30" rows="10"></textarea>
                             </div>
                             <a href="" class="send_comment">发送</a>
                         </div>
                         <div class="comment_list">
                             <!--这里加载评论-->
+
                             <div class="comment_item clearfix">
                                 <div class="comment_face">
                                     <img src="<c:url value="/resources/image/face.jpg"/> " height="30" width="30" alt=""/>
@@ -131,6 +132,7 @@
                                     ：ee
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -220,7 +222,21 @@
             document.cookie=name+ "=" +escape(value)+
             ((expirdays==null) ? "" : ";expires="+exdate.toGMTString());
         }
-
+        function getCookie(c_name)
+        {
+            if (document.cookie.length>0)
+            {
+                c_start=document.cookie.indexOf(c_name + "=")
+                if (c_start!=-1)
+                {
+                    c_start=c_start + c_name.length+1
+                    c_end=document.cookie.indexOf(";",c_start)
+                    if (c_end==-1) c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+                }
+            }
+            return ""
+        }
         function unclick(obj){
 
             return false;
@@ -234,14 +250,38 @@
             return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
         }
 
-        function load_comments(index) {
+        function load_comments(index,weibo_id){
 //            var commentlist = doucument.getElementById(index);
-            var commentlist = document.getElementsByClassName("comments");
-            if (commentlist[index].style.display == "none") {
-                commentlist[index].style.display = "block";
-            } else {
-                commentlist[index].style.display = "none";
-            }
+            var content = document.getElementById("content_comment");
+            var user_id = getCookie("user_name");
+            var data = {
+                user_id:user_id,
+                tao_id: weibo_id,
+                page:1
+            };
+            $.ajax({
+                type:"POST",
+                url:"<%=request.getContextPath()%>/comment/show",
+                data:data,
+                page:1,
+                dataType:"json",
+                success:function(data){
+                    if(data){
+                        $.each(data,function(index){
+                            alert(data[index].comment_id);
+                        });
+                        var commentlist = document.getElementsByClassName("comments");
+                        if (commentlist[index].style.display == "none") {
+                            commentlist[index].style.display = "block";
+                        } else {
+                            commentlist[index].style.display = "none";
+                        }
+                    }
+                },
+                error:function(){
+                    alert("ajax连接失败");
+                }
+            });
         }
         function load_tags(){
             var ob = document.getElementById('tag');

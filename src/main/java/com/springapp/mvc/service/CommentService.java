@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface CommentService {
 
-    public boolean CommentService(Map<String,Object> map);//发表评论
+    public boolean CommentPublish(Map<String,Object> map);//发表评论
     /*
     Map<String,Object>：
         String comment_id
@@ -20,5 +20,6 @@ public interface CommentService {
         String user_id
      */
     public List<Comment> GetCommentByTaoid(int index,String tao_id);
+    public int isNextPageExists();
 
 }

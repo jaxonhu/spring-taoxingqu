@@ -10,8 +10,9 @@ import java.util.List;
 public interface FollowService {
     public boolean follow_do(String user_id1,String user_id2);//user_id2关注user_id1
     public boolean follow_cancel(String user_id1,String user_id2);//user_id2取消关注user_id1
-    public List<UserPD> GetFollowList(String user_id2);
-    public List<UserPD> GetFansList(String user_id1);
+    public List<UserPD> GetFollowList(int index,String user_id2);
+    public List<UserPD> GetFansList(int index,String user_id1);
+    public int isNextPageExists();
     public int GetFollowNum(String user_id2);//获得关注人数
     public int GetFansNum(String user_id1);//获得粉丝人数
     public boolean Check_follow(String user_id2,String user_id1);//检查id2是否已经关注id1

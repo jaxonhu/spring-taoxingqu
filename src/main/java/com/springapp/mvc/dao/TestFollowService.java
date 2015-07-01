@@ -11,7 +11,7 @@ import java.util.List;
 public class TestFollowService {
     public static void main(String[] args){
         List<UserPD> userlist;
-        userlist = new FollowServiceImpl().GetFansList("胡家煊");
+        userlist = new FollowServiceImpl().GetFansList(1,"胡家煊");
         for(UserPD user:userlist){
             System.out.println(user.user_name);
         }

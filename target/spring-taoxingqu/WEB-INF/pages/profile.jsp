@@ -55,9 +55,9 @@
         </div>
 
         <nav class="menu_bar">
-            <a href=""><li>我的微博</li></a>
-            <a href=""><li style="border-left: 1px solid #c7cbda;">我的关注</li></a>
-            <a href=""><li style="border-left: 1px solid #c7cbda;">我的粉丝</li></a>
+            <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${user_name}"><li>我的微博</li></a>
+            <a href="<%=request.getContextPath()%>/follow?page=1&user_id=${user_name}"><li style="border-left: 1px solid #c7cbda;">我的关注</li></a>
+            <a href="<%=request.getContextPath()%>/fans?page=1&user_id=${user_name}"><li style="border-left: 1px solid #c7cbda;">我的粉丝</li></a>
         </nav>
 
         <c:forEach items="${weiboList}" var="weibo" varStatus="vs">
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <div class="handler_msg">
+            <div class="handler_msg" id="">
                 <nav>
                     <a href="" onclick="return false;"><li style="font-size:17px;"><i class="fa fa-thumbs-o-up" ><span style="font-size: 12px">${weibo.thumb_on}</span></i>
                     </li></a>
@@ -164,6 +164,10 @@
         if( res=="yes" ){
             update_follow_btn();
         }
+        if(name == user_name){
+            set_follow_btn_display();
+        }
+
     }
 
     function update_follow_btn(){
@@ -173,6 +177,15 @@
         follow_btn.innerHTML="已经关注";
         follow_btn.setAttribute("onclick","javascript:void(0);");
     }
+
+    function set_follow_btn_display(){
+        var follow = document.getElementsByClassName('follow')[0];
+        follow.style.display="none";
+        var follow_btn = document.getElementsByClassName('follow_btn')[0];
+        follow_btn.style.display="none";
+    }
+
+
 
     function addEvent(eventTarget,eventType,eventHandler){
         if(eventTarget.addEventListener){
