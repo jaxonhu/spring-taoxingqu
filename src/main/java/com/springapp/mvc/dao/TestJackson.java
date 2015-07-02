@@ -1,10 +1,9 @@
 package com.springapp.mvc.dao;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springapp.mvc.model.Comment;
+import com.springapp.mvc.service.CommentServiceImpl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,16 +17,18 @@ import java.util.List;
 public class TestJackson {
     public static void main(String[] args) throws  IOException{
         List<Comment> list = new ArrayList<Comment>();
-        Comment comment1 = new Comment("1324657","adasda","2015","dasadaqwe","asdasd");
+        Comment comment1 = new Comment("1324657","胡家煊","2015","dasadaqwe","asdasd");
         Comment comment2 = new Comment("1322134578","qweqw","2013","qweqwer","qweqweq");
         list.add(comment1);
         list.add(comment2);
+        String unicodeMessage = "胡家煊";
+        List<Comment> list2= new CommentServiceImpl().GetCommentByTaoid(1,"胡家煊1435633089026");
         final OutputStream out = new ByteArrayOutputStream();
         final ObjectMapper mapper = new ObjectMapper();
-
-        mapper.writeValue(out, list);
-
+        mapper.writeValue(out, comment1);
         final String data = out.toString();
+//        PrintStream out1 = new PrintStream(System.out, true, "UTF-8");
+//        out1.println(unicodeMessage);
         System.out.println(data);
 
     }

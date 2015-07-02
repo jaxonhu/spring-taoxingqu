@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by hujiaxuan on 2015/7/1.
  */
-public class TestComment {
+public class TestComment{
     public static void main(String[] args){
         CommentService commentService = new CommentServiceImpl();
         List<Comment> records;

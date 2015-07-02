@@ -123,16 +123,6 @@
                         <div class="comment_list">
                             <!--这里加载评论-->
 
-                            <div class="comment_item clearfix">
-                                <div class="comment_face">
-                                    <img src="<c:url value="/resources/image/face.jpg"/> " height="30" width="30" alt=""/>
-                                </div>
-                                <div class="comment_content">
-                                    <span>IAMyours1995</span>
-                                    ：ee
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -251,7 +241,7 @@
         }
 
         function load_comments(index,weibo_id){
-//            var commentlist = doucument.getElementById(index);
+            var list = document.getElementsByClassName("comments");
             var content = document.getElementById("content_comment");
             var user_id = getCookie("user_name");
             var data = {
@@ -259,29 +249,48 @@
                 tao_id: weibo_id,
                 page:1
             };
-            $.ajax({
-                type:"POST",
-                url:"<%=request.getContextPath()%>/comment/show",
-                data:data,
-                page:1,
-                dataType:"json",
-                success:function(data){
-                    if(data){
-                        $.each(data,function(index){
-                            alert(data[index].comment_id);
-                        });
-                        var commentlist = document.getElementsByClassName("comments");
-                        if (commentlist[index].style.display == "none") {
-                            commentlist[index].style.display = "block";
-                        } else {
-                            commentlist[index].style.display = "none";
+            if(list[index].style.display == "none"){
+                $.ajax({
+                    type:"POST",
+                    url:"<%=request.getContextPath()%>/comment/show",
+                    data:data,
+                    page:1,
+                    dataType:"json",
+                    success:function(data){
+                        if(data){
+                            $.each(data,function(index){
+                                var content =
+                                "<div class='comment_item clearfix'>"+
+                                "<div class='comment_face'>"+
+                                "<img src=\"<c:url value='/resources/image/face.jpg'/> \" height='30' width='30'/>"+
+                                "</div>"+
+                                "<div class='comment_content'>"+
+                                "<span>"+data[index].user_id+"</span>"+
+                                 "   ："+data[index].comment+
+                                "</div>"+
+                                "</div>"
+
+                                $(".comment_list:first").append(content);
+                            });
+
                         }
+                        show_comments(index);
+                    },
+                    error:function(){
+                        alert("ajax连接失败");
                     }
-                },
-                error:function(){
-                    alert("ajax连接失败");
-                }
-            });
+                });
+            }else{
+                list[index].style.display = "none";
+            }
+        }
+        function show_comments(index){
+            var commentlist = document.getElementsByClassName("comments");
+            if (commentlist[index].style.display == "none") {
+                commentlist[index].style.display = "block";
+            } else {
+                commentlist[index].style.display = "none";
+            }
         }
         function load_tags(){
             var ob = document.getElementById('tag');
