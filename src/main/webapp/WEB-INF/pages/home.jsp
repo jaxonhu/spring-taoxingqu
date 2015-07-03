@@ -232,7 +232,7 @@
             return false;
         }
 
-        function addClass(obj, cls) {
+        function addClass(obj, cls){
             if (!this.hasClass(obj, cls)) obj.className += " " + cls;
         }
 
