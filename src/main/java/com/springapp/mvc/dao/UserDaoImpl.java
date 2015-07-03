@@ -45,7 +45,7 @@ public class UserDaoImpl extends BaseDao implements UserDao{
     }
 
     @Override
-    public Boolean UserInsert(UserPD user) {
+    public boolean UserInsert(UserPD user) {
 
         user_id = user.user_id;
         user_name = user.user_name;
@@ -70,4 +70,8 @@ public class UserDaoImpl extends BaseDao implements UserDao{
         return true;
     }
 
+    @Override
+    public boolean UserFaceInsert(String user_name) {
+        return false;
+    }
 }

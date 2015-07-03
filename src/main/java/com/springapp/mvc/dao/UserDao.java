@@ -8,7 +8,7 @@ import com.springapp.mvc.model.UserPD;
 public interface UserDao {
 
     public UserPD UserSelect(String user_name);
-    public Boolean UserInsert(UserPD user);
-
+    public boolean UserInsert(UserPD user);
+    public boolean UserFaceInsert(String user_name);
 
 }

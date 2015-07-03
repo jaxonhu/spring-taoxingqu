@@ -7,7 +7,12 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<c:url value="/resources/style/profile.css"/> "/>
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-    <script src="<c:url value="/resources/JS/jquery-1.11.3.js"/>"></script>
+    <script src="<c:url value="/resources/JS/jquery-1.6.1.min.js"/>"></script>
+    <script  src="<c:url value="/resources/JS/ajaxfileupload.js"/>"></script>
+    <%--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
+    <%--<script src="http://malsup.github.com/jquery.form.js"></script>--%>
+    <script  src="<c:url value="/resources/JS/face_upload.js"/>"></script>
+
     <title>${user_name}的个人主页</title>
 </head>
 <body>
@@ -52,6 +57,9 @@
             <div class="follow">
                 <a class="follow_btn" onclick="following('${user_name}');" href="javascript:void(0);">关注</a>
             </div>
+
+                <input type="file" id="file" name="file"/>
+                <input value="upload" type="button" id="upload" onclick="ImageUpload();">上传</input>
         </div>
 
         <nav class="menu_bar">

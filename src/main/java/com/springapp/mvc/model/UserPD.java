@@ -11,6 +11,15 @@ public class UserPD {
     public String user_pwd;
     public String Email;
     public String register_time;
+    public String face_url;
+
+    public String getFace_url() {
+        return face_url;
+    }
+
+    public void setFace_url(String face_url){
+        this.face_url = face_url;
+    }
 
     public UserPD(String user_id, String user_name, String user_pwd, String email, String register_time) {
         this.user_id = user_id;
@@ -18,6 +27,7 @@ public class UserPD {
         this.user_pwd = user_pwd;
         Email = email;
         this.register_time = register_time;
+        this.face_url="<c:url value=\"/resources/image/default.jpg\"/>";
     }
 
     public String getUser_id() {

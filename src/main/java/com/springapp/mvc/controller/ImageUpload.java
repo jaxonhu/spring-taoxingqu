@@ -4,11 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,16 +22,17 @@ import java.util.Date;
  */
 @Controller
 public class ImageUpload{
-    @RequestMapping(value = "upload_enter.do", method = RequestMethod.GET)
-    public String enter(HttpServletRequest request,
-                        HttpServletResponse response, ModelMap model) throws IOException {
-        return "upload";
-    }
+//    @RequestMapping(value = "upload_enter.do", method = RequestMethod.GET)
+//    public String enter(HttpServletRequest request,
+//                        HttpServletResponse response, ModelMap model) throws IOException {
+//        return "upload";
+//    }
     @RequestMapping(value = "upload.do", method = RequestMethod.POST)
-    public void upload(HttpServletRequest request,
-                       HttpServletResponse response, ModelMap model) throws IOException {
+    public @ResponseBody String upload(HttpServletRequest request,
+                       HttpServletResponse response, ModelMap model,HttpSession session) throws IOException {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         MultipartFile mFile = multipartRequest.getFile("file");
+        String user_name = (String)session.getAttribute("user_name");
         //String path = request.getSession().getServletContext().getRealPath("/");
         String path = request.getSession().getServletContext().getRealPath("/resources/upload");
         String filename = mFile.getOriginalFilename();
@@ -46,5 +49,15 @@ public class ImageUpload{
         outputStream.write(b, 0, length);
         inputStream.close();
         outputStream.close();
+
+        /*
+        将url存入数据库
+         */
+//        <c:url value="/resources/image/logo.png"/>
+        String url2 = "<c:url value=\"/resources/image/"+filename+"\"/>";
+
+
+
+        return "success";
     }
 }
