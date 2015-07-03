@@ -61,9 +61,13 @@
                 <div class="send_bar clearfix">
                     <nav class="send_icon">
                         <li>
-                            <a href="" style="text-decoration: none; color: #0f1012;">
+                            <a href="javascript:void(0)" style="text-decoration: none; color: #0f1012;">
                                 <i class="fa fa-picture-o"></i>
                                 <span class="send_img" style="font-size: 14px;">图片</span>
+                                <form method="post" action="upload.do" enctype="multipart/form-data">
+                                    <input type="file" name="file" />
+                                    <input type="submit"  style="position: absolute;top: 20px;"/>
+                                </form>
                             </a>
                         </li>
                         <li>
@@ -232,7 +236,7 @@
             return false;
         }
 
-        function addClass(obj, cls) {
+        function addClass(obj, cls){
             if (!this.hasClass(obj, cls)) obj.className += " " + cls;
         }
 
