@@ -64,4 +64,18 @@ public class WeiboController {
         return modelMap;
     }
 
+   @RequestMapping("/praise")
+   public @ResponseBody String WeiboPraise(HttpServletRequest request)throws IOException{
+
+      String tao_id = URLDecoder.decode(request.getParameter("tao_id"),"UTF-8");
+      boolean res = new WeiboServiceImpl().GivePraise(tao_id);
+      return "success";
+   }
+   @RequestMapping("/down")
+   public @ResponseBody String WeiboDown(HttpServletRequest request)throws IOException{
+
+      String tao_id = URLDecoder.decode(request.getParameter("tao_id"),"UTF-8");
+      boolean res = new WeiboServiceImpl().GiveDown(tao_id);
+      return "success";
+   }
 }

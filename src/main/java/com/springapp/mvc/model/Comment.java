@@ -11,13 +11,14 @@ public class Comment {
     private String time;
     private String user_id;
     private String tao_id;
-
+    private String user_face_url;
     public Comment(String comment_id, String comment, String time, String user_id, String tao_id) {
         this.comment_id = comment_id;
         this.comment = comment;
         this.time = time;
         this.user_id = user_id;
         this.tao_id = tao_id;
+        this.user_face_url = "<c:url value=\"/resources/upload/default.jpg\"/>";
     }
 
     public String getComment_id() {
@@ -58,5 +59,13 @@ public class Comment {
 
     public void setTao_id(String tao_id) {
         this.tao_id = tao_id;
+    }
+
+    public String getUser_face_url() {
+        return user_face_url;
+    }
+
+    public void setUser_face_url(String user_face_url) {
+        this.user_face_url = user_face_url;
     }
 }

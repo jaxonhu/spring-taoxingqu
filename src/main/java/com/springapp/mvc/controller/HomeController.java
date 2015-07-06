@@ -1,9 +1,8 @@
 package com.springapp.mvc.controller;
 import com.springapp.mvc.dao.WeiboDaoImpl;
+import com.springapp.mvc.model.Union;
 import com.springapp.mvc.model.Weibo;
-import com.springapp.mvc.service.FollowService;
-import com.springapp.mvc.service.FollowServiceImpl;
-import com.springapp.mvc.service.WeiboServiceImpl;
+import com.springapp.mvc.service.*;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +41,7 @@ public class HomeController {
         index = 1;
 
         WeiboServiceImpl wbService = new WeiboServiceImpl();
-        List<Weibo> records2 = wbService.GetPageByIndex(index,"basketball","kkk");
+        List<Union> records2 = wbService.GetPageByIndex(index,"basketball","kkk");
         int isNext = wbService.IsNextPageExist();
 
         mv.addObject("weiboList",records2);
@@ -58,28 +57,27 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
 //        String user_name = new String(httpServletRequest.getParameter("user_name").getBytes("ISO8859-1"), "UTF-8");
         String user_name;
+        String face_url="";
+        UserService userService = new UserServiceImpl();
         String page = httpServletRequest.getParameter("page");
-
         String tag  = httpServletRequest.getParameter("tag");
         String name = (String)session.getAttribute("user_name");
+        face_url = userService.GetUserFaceUrl(name);
         if(tag.equals("")){
             user_name = (String)session.getAttribute("user_name");
         }else{
             tag =new String(tag.getBytes("ISO8859-1"),"UTF-8");
             user_name = "";
         }
-
         int index = Integer.parseInt(page);
-
         WeiboServiceImpl wbService = new WeiboServiceImpl();
         FollowService followService = new FollowServiceImpl();
-        List<Weibo> records2 = wbService.GetPageByIndex(index,tag,user_name);
+        List<Union> records2 = wbService.GetPageByIndex(index,tag,user_name);
         int isNext = wbService.IsNextPageExist();
         int weibo_num = wbService.GetWeiboNum(name);
         int follow_num = followService.GetFollowNum(name);
         int fans_num = followService.GetFansNum(name);
-
-        mv.addObject("weiboList",records2);
+        mv.addObject("UnionList",records2);
         mv.addObject("isNextPage",isNext);
         mv.addObject("user_name",user_name);
         mv.addObject("index",index);
@@ -87,6 +85,7 @@ public class HomeController {
         mv.addObject("weibo_num",weibo_num);
         mv.addObject("follow_num",follow_num);
         mv.addObject("fans_num",fans_num);
+        mv.addObject("face_url",face_url);
         mv.setViewName("home");
         return mv;
     }

@@ -160,4 +160,67 @@ public class WeiboDaoImpl extends BaseDao implements WeiboDao  {
         this.terminate();
         return num;
     }
+
+    @Override
+    public int getThumbon(String tao_id) {
+        int thumb_on=0;
+        String sql = "select thumb_on from weibo where tao_id='"+tao_id+"'";
+        this.getaConnection();
+        try{
+            ResultSet rs = aStatement.executeQuery(sql);
+            if(rs.next()){
+                thumb_on = rs.getInt(1);
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        this.terminate();
+        return thumb_on;
+    }
+
+    @Override
+    public int getThumbdown(String tao_id) {
+        int thumb_down=0;
+        String sql = "select thumb_down from weibo where tao_id='"+tao_id+"'";
+        this.getaConnection();
+        try{
+            ResultSet rs = aStatement.executeQuery(sql);
+            if(rs.next()){
+                thumb_down = rs.getInt(1);
+            }
+        }catch (SQLException e){
+            this.terminate();
+            System.out.println(e);
+        }
+        this.terminate();
+        return thumb_down;
+    }
+
+    @Override
+    public int setThumbon(String tao_id, int thumb_on) {
+        String sql = "update weibo set thumb_on='"+thumb_on+"' where tao_id='"+tao_id+"'";
+        this .getaConnection();
+        try{
+            int res = aStatement.executeUpdate(sql);
+        }catch (SQLException e){
+            this.terminate();
+            System.out.println(e);
+        }
+        this.terminate();
+        return 0;
+    }
+
+    @Override
+    public int setThumbdown(String tao_id, int thumb_down) {
+        String sql = "update weibo set thumb_down='"+thumb_down+"' where tao_id='"+tao_id+"'";
+        this .getaConnection();
+        try{
+            int res = aStatement.executeUpdate(sql);
+        }catch (SQLException e){
+            this.terminate();
+            System.out.println(e);
+        }
+        this.terminate();
+        return 0;
+    }
 }

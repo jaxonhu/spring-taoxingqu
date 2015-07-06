@@ -2,10 +2,14 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.dao.UserDao;
 import com.springapp.mvc.dao.UserDaoImpl;
+import com.springapp.mvc.model.Union;
 import com.springapp.mvc.model.UserPD;
+import com.springapp.mvc.model.Weibo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,5 +72,37 @@ public class UserServiceImpl implements UserService {
         time_num = date.getTime();
         String user_id = user_name + time_num;
         return user_id;
+    }
+
+    @Override
+    public boolean UserFaceUpload(String user_name, String url) {
+        boolean res = userDao.UserFaceInsert(user_name,url);
+        return res;
+    }
+
+    @Override
+    public List<Union> GetUsersByWeibo(List<Weibo> weibo_list) {
+        List<Union> result=new ArrayList<Union>();
+
+        UserPD user_temp;
+        for(Weibo wb:weibo_list){
+            Union temp=new Union();
+            temp.weibo = wb;
+            user_temp = userDao.UserSelect(wb.user_id);
+            temp.user = user_temp;
+            result.add(temp);
+            temp=null;
+        }
+
+        return result;
+    }
+
+    @Override
+    public String GetUserFaceUrl(String user_name) {
+
+        UserPD user;
+        user = userDao.UserSelect(user_name);
+
+        return user.face_url;
     }
 }

@@ -12,9 +12,8 @@ public class Weibo implements Serializable {
     public String picture_id;//图片url
     public int thumb_on;//点赞个数
     public String time;
-    public String user_id;
+    public String user_id;//用户名字
     public String interest_id;
-
 
     public Weibo(String tao_id, String wb_content, String picture_id,
                  int thumb_on, String time, String user_id, String interest_id) {
@@ -82,4 +81,5 @@ public class Weibo implements Serializable {
     public void setInterest_id(String interest_id) {
         this.interest_id = interest_id;
     }
+
 }

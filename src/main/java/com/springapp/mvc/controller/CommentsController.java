@@ -30,7 +30,7 @@ import java.util.Map;
 @RequestMapping(value = "/comment")
 public class CommentsController {
     @RequestMapping("/publish")
-    public @ResponseBody Map<String,Object> CommentPublish(HttpServletRequest request,HttpSession session) throws IOException{
+    public @ResponseBody String CommentPublish(HttpServletRequest request,HttpSession session) throws IOException{
         Map<String,Object> map = new HashMap<String, Object>(3);
         String content = URLDecoder.decode(request.getParameter("content"), "UTF-8");
         String tao_id = URLDecoder.decode(request.getParameter("tao_id"), "UTF-8");
@@ -39,19 +39,14 @@ public class CommentsController {
         map.put("content",content);
         map.put("tao_id",tao_id);
         map.put("user_id",user_name);
-
         boolean res = new CommentServiceImpl().CommentPublish(map);
-
-
-
-        return map;
-
-
+        return "success";
     }
     @RequestMapping(value = "/show",method = RequestMethod.POST)
     public @ResponseBody void CommentShow(HttpServletRequest request,HttpServletResponse response)throws IOException{
         String tao_id = URLDecoder.decode(request.getParameter("tao_id"), "UTF-8");
         String user_id = URLDecoder.decode(request.getParameter("user_id"), "UTF-8");
+
         final ObjectMapper mapper = new ObjectMapper();
         String page = request.getParameter("page");
         int index = Integer.parseInt(page);

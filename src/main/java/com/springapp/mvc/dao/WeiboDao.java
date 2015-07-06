@@ -14,4 +14,8 @@ public interface WeiboDao {
     public List<Weibo> getWeiboRecords(String tag,String user_id);
     public List<Weibo> getWeiboRecordsByUser(String tag,String user_id);
     public int getWeiboNum(String user_id);
+    public int getThumbon(String tao_id);
+    public int getThumbdown(String tao_id);
+    public int setThumbon(String tao_id,int thumb_on);
+    public int setThumbdown(String tao_id,int thumb_down);
 }

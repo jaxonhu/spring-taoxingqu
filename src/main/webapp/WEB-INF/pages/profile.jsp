@@ -12,7 +12,6 @@
     <%--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
     <%--<script src="http://malsup.github.com/jquery.form.js"></script>--%>
     <script  src="<c:url value="/resources/JS/face_upload.js"/>"></script>
-
     <title>${user_name}的个人主页</title>
 </head>
 <body>
@@ -57,7 +56,6 @@
             <div class="follow">
                 <a class="follow_btn" onclick="following('${user_name}');" href="javascript:void(0);">关注</a>
             </div>
-
                 <input type="file" id="file" name="file"/>
                 <input value="upload" type="button" id="upload" onclick="ImageUpload();">上传</input>
         </div>
@@ -68,54 +66,43 @@
             <a href="<%=request.getContextPath()%>/fans?page=1&user_id=${user_name}"><li style="border-left: 1px solid #c7cbda;">我的粉丝</li></a>
         </nav>
 
-        <c:forEach items="${weiboList}" var="weibo" varStatus="vs">
-        <div class="item_msg">
-
-            <div class="detail_msg">
-
-                <div class="face">
-                    <a href="">
-                        <img src="<c:url value="/resources/image/face.jpg"/> " alt=""/>
-                    </a>
-                </div>
-
-                <div class="detail">
-                    <div class="detail_name"><a href="">${weibo.user_id}</a></div>
-                    <div class="detail_content">${weibo.wb_content}</div>
-                </div>
-            </div>
-
-            <div class="handler_msg" id="">
-                <nav>
-                    <a href="" onclick="return false;"><li style="font-size:17px;"><i class="fa fa-thumbs-o-up" ><span style="font-size: 12px">${weibo.thumb_on}</span></i>
-                    </li></a>
-                    <a href="" onclick="return false;" ><li style="font-size:17px;"><i class="fa fa-thumbs-o-down"><span style="font-size: 12px">11</span></i>
-                    </li></a>
-                    <a href="" onclick="load_comments(${vs.index});return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
-                </nav>
-            </div>
-
-            <div class="comments" style="display: none;">
-                <div class="give_comment clearfix">
-                    <div class="comment_input">
-                        <textarea name="comment" cols="30" rows="10"></textarea>
+        <c:forEach items="${UnionList}" var="list" varStatus="vs">
+            <div class="item_msg" id="${list.weibo.tao_id}">
+                <div class="detail_msg">
+                    <div class="face">
+                        <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${list.weibo.user_id}">
+                            <img src="${list.user.face_url}" style="height: 50px;width: 50px;" alt=""/>
+                        </a>
                     </div>
-                    <a href="" class="send_comment">发送</a>
+
+                    <div class="detail">
+                        <div class="detail_name"><a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${list.weibo.user_id}">${list.weibo.user_id}</a></div>
+                        <div class="detail_content">${list.weibo.wb_content}</div>
+                    </div>
                 </div>
-                <div class="comment_list">
-                    <!--这里加载评论-->
-                    <div class="comment_item clearfix">
-                        <div class="comment_face">
-                            <img src="<c:url value="/resources/image/face.jpg"/> " height="30" width="30" alt=""/>
+
+                <div class="handler_msg" id="${list.weibo.tao_id}">
+                    <nav>
+                        <a href="" onclick="return false;"><li style="font-size:17px;"><i class="fa fa-thumbs-o-up" ><span style="font-size: 12px">${list.weibo.thumb_on}</span></i>
+                        </li></a>
+                        <a href="" onclick="return false;" ><li style="font-size:17px;"><i class="fa fa-thumbs-o-down"><span style="font-size: 12px">11</span></i>
+                        </li></a>
+                        <a href="" onclick="load_comments(${vs.index},'${list.weibo.tao_id}');return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
+                    </nav>
+                </div>
+
+                <div class="comments" style="display: none;">
+                    <div class="give_comment clearfix">
+                        <div class="comment_input">
+                            <textarea name="comment" class="content_comment" id="content_comment" cols="30" rows="10"></textarea>
                         </div>
-                        <div class="comment_content">
-                            <span>IAMyours1995</span>
-                            ：ee
-                        </div>
+                        <a href="javascript:void(0)" onclick="CommentPublish(${vs.index},'${list.weibo.tao_id}');" class="send_comment">发送</a>
+                    </div>
+                    <div class="comment_list">
+                        <!--这里加载评论-->
                     </div>
                 </div>
             </div>
-        </div>
         </c:forEach>
         <div class="main_footer">
             <a href="" class="prev_footer"   >上一页</a>
@@ -130,18 +117,6 @@
 </div>
 <script>
     window.onload = init(${index},${isNextPage});
-
-
-
-    function load_comments(index){
-//            var commentlist = doucument.getElementById(index);
-        var commentlist = document.getElementsByClassName("comments");
-        if (commentlist[index].style.display == "none") {
-            commentlist[index].style.display = "block";
-        } else {
-            commentlist[index].style.display = "none";
-        }
-    }
     function init(index,isNextPage){
         var prev = document.getElementsByClassName("prev_footer");
         var next = document.getElementsByClassName("next_footer");
@@ -254,6 +229,80 @@
         return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
     }
 
+    function load_comments(index,weibo_id){
+        var list = document.getElementsByClassName("comments");
+        var content = document.getElementById("content_comment");
+        var user_id = getCookie("user_name");
+        var data = {
+            user_id:user_id,
+            tao_id: weibo_id,
+            page:1
+        };
+        if(list[index].style.display == "none"){
+            $.ajax({
+                type:"POST",
+                url:"<%=request.getContextPath()%>/comment/show",
+                data:data,
+                page:1,
+                dataType:"json",
+                success:function(data){
+                    if(data){
+                        $.each(data,function(index1){
+                            var content =
+                                    "<div class='comment_item clearfix'>"+
+                                    "<div class='comment_face'>"+
+                                    "<img src=\"<c:url value='/resources/image/face.jpg'/> \" height='30' width='30'/>"+
+                                    "</div>"+
+                                    "<div class='comment_content'>"+
+                                    "<span>"+data[index1].user_id+"</span>"+
+                                    "   ："+data[index1].comment+
+                                    "</div>"+
+                                    "</div>"
+
+                            $(".comment_list:eq("+index+")").append(content);
+                        });
+
+                    }
+                    show_comments(index);
+                },
+                error:function(){
+                    alert("ajax连接失败");
+                }
+            });
+        }else{
+            $(".comment_list:eq("+index+")").empty();
+            list[index].style.display = "none";
+        }
+    }
+    function show_comments(index){
+        var commentlist = document.getElementsByClassName("comments");
+        if (commentlist[index].style.display == "none") {
+            commentlist[index].style.display = "block";
+        } else {
+            commentlist[index].style.display = "none";
+        }
+    }
+    function CommentPublish(index,tao_id){
+        var content = document.getElementsByClassName('content_comment')[index].value;
+        var data ={
+            content:content,
+            tao_id:tao_id
+        };
+        alert(content);
+        $.ajax({
+            type:"POST",
+            url:"<%=request.getContextPath()%>/comment/publish",
+            data:data,
+            success:function(data){
+                if(data){
+                    alert("评论成功");
+                }
+            },
+            error:function(){
+                alert("ajax连接失败");
+            }
+        });
+    }
 </script>
 
 </body>

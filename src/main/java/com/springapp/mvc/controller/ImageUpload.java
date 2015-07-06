@@ -1,5 +1,6 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,9 +55,9 @@ public class ImageUpload{
         将url存入数据库
          */
 //        <c:url value="/resources/image/logo.png"/>
-        String url2 = "<c:url value=\"/resources/image/"+filename+"\"/>";
+        String url2 = "<c:url value=\"/resources/upload/"+filename+"\"/>";
 
-
+        boolean res = new UserServiceImpl().UserFaceUpload(user_name,url2);
 
         return "success";
     }

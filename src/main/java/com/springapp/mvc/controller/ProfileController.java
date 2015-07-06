@@ -1,5 +1,6 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.model.Union;
 import com.springapp.mvc.model.Weibo;
 import com.springapp.mvc.service.FollowServiceImpl;
 import com.springapp.mvc.service.WeiboServiceImpl;
@@ -26,7 +27,7 @@ public class ProfileController {
         String tag = request.getParameter("tag");
         WeiboServiceImpl wbService = new WeiboServiceImpl();
         int index = Integer.parseInt(page);
-        List<Weibo> records = wbService.GetPageByUser(index,tag,user_name);
+        List<Union> records = wbService.GetPageByUser(index,tag,user_name);
         int isNext = wbService.IsNextPageExist();
         boolean res = new FollowServiceImpl().Check_follow(myname,user_name);
         if(res){

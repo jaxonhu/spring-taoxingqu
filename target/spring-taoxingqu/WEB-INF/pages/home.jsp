@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="<c:url value="/resources/style/listmenu.css"/>"/>
 
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-    <script src="<c:url value="/resources/JS/jquery-1.11.3.js"/>"></script>
+    <script src="<c:url value="/resources/JS/jquery-1.6.1.min.js"/>"></script>
+    <script  src="<c:url value="/resources/JS/ajaxfileupload.js"/>"></script>
+    <script  src="<c:url value="/resources/JS/face_upload.js"/>"></script>
     <title></title>
 </head>
 <body>
@@ -64,10 +66,8 @@
                             <a href="javascript:void(0)" style="text-decoration: none; color: #0f1012;">
                                 <i class="fa fa-picture-o"></i>
                                 <span class="send_img" style="font-size: 14px;">图片</span>
-                                <form method="post" action="upload.do" enctype="multipart/form-data">
-                                    <input type="file" name="file" />
-                                    <input type="submit"  style="position: absolute;top: 20px;"/>
-                                </form>
+                                <%--<input type="file" id="file" name="file"/>--%>
+                                <%--<input value="upload" type="button" id="upload" onclick="ImageUpload();">上传</input>--%>
                             </a>
                         </li>
                         <li>
@@ -89,40 +89,40 @@
                         <a href="javascript:void(0);" onclick="click_tags(this);">历史</a>
                     </div>
 
-                    <a href="" class="send_button" onclick="WeiboPublish(0); return false;" >发布</a>
+                    <a href="javascript:void(0)" class="send_button" onclick="WeiboPublish(0); return false;" >发布</a>
                 </div>
             </div>
-            <c:forEach items="${weiboList}" var="weibo" varStatus="vs">
-                <div class="item_msg">
+            <c:forEach items="${UnionList}" var="list" varStatus="vs">
+                <div class="item_msg" id="${list.weibo.tao_id}">
                     <div class="detail_msg">
                         <div class="face">
-                            <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${weibo.user_id}">
-                                <img src="<c:url value="/resources/image/face.jpg"/> " alt=""/>
+                            <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${list.weibo.user_id}">
+                                <img src="${list.user.face_url}" style="height: 50px;width: 50px;" alt=""/>
                             </a>
                         </div>
 
                         <div class="detail">
-                            <div class="detail_name"><a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${weibo.user_id}">${weibo.user_id}</a></div>
-                            <div class="detail_content">${weibo.wb_content}</div>
+                            <div class="detail_name"><a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${list.weibo.user_id}">${list.weibo.user_id}</a></div>
+                            <div class="detail_content">${list.weibo.wb_content}</div>
                         </div>
                     </div>
 
-                    <div class="handler_msg" id="${weibo.tao_id}">
+                    <div class="handler_msg" id="${list.weibo.tao_id}">
                         <nav>
-                            <a href="" onclick="return false;"><li style="font-size:17px;"><i class="fa fa-thumbs-o-up" ><span style="font-size: 12px">${weibo.thumb_on}</span></i>
+                            <a href="javascript:void(0)" onclick="GivePraise(${vs.index},'${list.weibo.tao_id}');return false;"><li  style="font-size:17px;"><i class="fa fa-thumbs-o-up"  ><span class="thumb_on" style="font-size: 12px">${list.weibo.thumb_on}</span></i>
                             </li></a>
-                            <a href="" onclick="return false;" ><li style="font-size:17px;"><i class="fa fa-thumbs-o-down"><span style="font-size: 12px">11</span></i>
+                            <a href="javascript:void(0)" onclick="GiveDown(${vs.index},'${list.weibo.tao_id}');return false;" ><li style="font-size:17px;"><i class="fa fa-thumbs-o-down"><span class="thumb_down" style="font-size: 12px">11</span></i>
                             </li></a>
-                            <a href="" onclick="load_comments(${vs.index},'${weibo.tao_id}');return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
+                            <a href="javascript:void(0)" onclick="load_comments(${vs.index},'${list.weibo.tao_id}');return false;"><li><span style="color: #808080;font-size: 12px;">评论</span></li></a>
                         </nav>
                     </div>
 
                     <div class="comments" style="display: none;">
                         <div class="give_comment clearfix">
                             <div class="comment_input">
-                                <textarea name="comment" id="content_comment" cols="30" rows="10"></textarea>
+                                <textarea name="comment" class="content_comment" id="content_comment" cols="30" rows="10"></textarea>
                             </div>
-                            <a href="" class="send_comment">发送</a>
+                            <a href="javascript:void(0)" onclick="CommentPublish(${vs.index},'${list.weibo.tao_id}');" class="send_comment">发送</a>
                         </div>
                         <div class="comment_list">
                             <!--这里加载评论-->
@@ -142,20 +142,20 @@
         <div class="main_right">
             <div class="person_info">
                 <div class="right_face">
-                    <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${user_name}"><img src="<c:url value="/resources/image/face2.jpg"/> " alt=""/></a>
+                    <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${user_name}"><img src="${face_url}" alt=""/></a>
 
                 </div>
                 <div class="right_name">
                     <a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${user_name}">${user_name}</a>
                 </div>
                 <nav class="person_menu">
-                    <li><a href="" style="text-decoration: none;"><strong>${follow_num}</strong>
+                    <li><a href="<%=request.getContextPath()%>/follow?page=1&user_id=${user_name}" style="text-decoration: none;"><strong>${follow_num}</strong>
                         <span>关注</span></a>
                         </li>
-                    <li><a href=""  style="text-decoration: none;"><strong>${fans_num}</strong>
+                    <li><a href="<%=request.getContextPath()%>/fans?page=1&user_id=${user_name}"  style="text-decoration: none;"><strong>${fans_num}</strong>
                         <span>粉丝</span></a>
                     </li>
-                    <li><a href=""  style="text-decoration: none;"><strong>${weibo_num}</strong>
+                    <li><a href="<%=request.getContextPath()%>/profile?page=1&tag=&user_id=${user_name}"  style="text-decoration: none;"><strong>${weibo_num}</strong>
                         <span>微博</span></a>
                     </li>
                 </nav>
@@ -166,13 +166,9 @@
     <script>
         window.onload = init(${index},${isNextPage});
         function init(index,isNextPage){
-
             var prev = document.getElementsByClassName("prev_footer");
             var next = document.getElementsByClassName("next_footer");
-
             setCookie("user_name","${user_name}",365);
-
-
             if(index == 1){
                 addClass(prev[0],"unclick");
                 prev[0].href = 'javascript:void(0);';
@@ -198,9 +194,7 @@
         function addEvent(eventTarget,eventType,eventHandler){
             if(eventTarget.addEventListener){
                 eventTarget.addEventListener(eventType,eventHandler,false);
-                alert("hello");
             }else{
-                alert("world");
                 if(eventTarget.attachEvent){
                     eventType="on"+eventType;
                     eventTarget.attachEvent(eventType,eventHandler);
@@ -262,19 +256,19 @@
                     dataType:"json",
                     success:function(data){
                         if(data){
-                            $.each(data,function(index){
+                            $.each(data,function(index1){
                                 var content =
                                 "<div class='comment_item clearfix'>"+
                                 "<div class='comment_face'>"+
-                                "<img src=\"<c:url value='/resources/image/face.jpg'/> \" height='30' width='30'/>"+
+                                "<img src='"+data[index1].user_face_url+"' height='30' width='30'/>"+
                                 "</div>"+
                                 "<div class='comment_content'>"+
-                                "<span>"+data[index].user_id+"</span>"+
-                                 "   ："+data[index].comment+
+                                "<span>"+data[index1].user_id+"</span>"+
+                                 "   ："+data[index1].comment+
                                 "</div>"+
                                 "</div>"
 
-                                $(".comment_list:first").append(content);
+                                $(".comment_list:eq("+index+")").append(content);
                             });
 
                         }
@@ -285,6 +279,7 @@
                     }
                 });
             }else{
+                $(".comment_list:eq("+index+")").empty();
                 list[index].style.display = "none";
             }
         }
@@ -308,11 +303,6 @@
             }
         }
         function click_tags(Object){
-            alert("hello");
-            alert(Object.innerHTML);
-
-        }
-        function click_tags(Object){
             var tag_name =Object.innerHTML;
             var tag = document.getElementById("tag");
             var a = document.getElementsByClassName("send_bar")[0];
@@ -325,8 +315,6 @@
                 span_tag.id = "weibo_tag";
                 span_tag.innerHTML = tag_name;
             }
-
-
         }
 
         function WeiboPublish(index){
@@ -354,6 +342,84 @@
                 },
                 error:function(){
                     alert("ajax连接失败");
+                }
+            });
+        }
+
+        function CommentPublish(index,tao_id){
+            var content = document.getElementsByClassName('content_comment')[index].value;
+            var data ={
+                content:content,
+                tao_id:tao_id
+            };
+            alert(content);
+            $.ajax({
+                type:"POST",
+                url:"<%=request.getContextPath()%>/comment/publish",
+                data:data,
+                success:function(data){
+                    if(data){
+                        alert("评论成功");
+                    }
+                },
+                error:function(){
+                    alert("ajax连接失败");
+                }
+            });
+        }
+
+        function GivePraise(index,tao_id){
+
+            var data = {
+                tao_id:tao_id
+            }
+            $.ajax({
+                type:"POST",
+                url:"<%=request.getContextPath()%>/weibo/praise",
+                data:data,
+                success:function(data){
+                    if(data){
+                        alert("点赞成功哟！");
+                    }
+                    var num = $(".thumb_on:eq("+index+")").html();
+                    alert($(".thumb_on:eq("+index+")").html());
+                    num = parseInt(num,10);
+                    num+=1;
+                    $(".thumb_on:eq("+index+")").html(num);
+                    $(".thumb_on:eq("+index+")").parent().css('color','#ffa00a');
+                    $(".thumb_on:eq("+index+")").css('color','#ffa00a');
+                    $(".handler_msg:eq("+index+")").find('a:eq(0)').attr('onclick','return false;');
+                },
+                error:function(){
+                    alert("服务器君便当了~");
+                }
+            });
+        }
+        function GiveDown(index,tao_id){
+
+            var data = {
+                tao_id:tao_id
+            }
+            $.ajax({
+                type:"POST",
+                url:"<%=request.getContextPath()%>/weibo/praise",
+                data:data,
+                success:function(data){
+                    if(data){
+                        alert("点赞成功哟！");
+                    }
+                    var num = $(".thumb_down:eq("+index+")").html();
+                    alert($(".thumb_down:eq("+index+")").html());
+                    num = parseInt(num,10);
+                    num+=1;
+                    $(".thumb_down:eq("+index+")").html(num);
+                    $(".thumb_down:eq("+index+")").parent().css('color','#ffa00a');
+                    alert($(".thumb_down:eq("+index+")").parent().html());
+                    $(".thumb_down:eq("+index+")").css('color','#ffa00a');
+                    $(".handler_msg:eq("+index+")").find('a:eq(1)').attr('onclick','return false;');
+                },
+                error:function(){
+                    alert("服务器君便当了~");
                 }
             });
         }

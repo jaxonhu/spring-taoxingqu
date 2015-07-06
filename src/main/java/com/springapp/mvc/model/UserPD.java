@@ -27,7 +27,7 @@ public class UserPD {
         this.user_pwd = user_pwd;
         Email = email;
         this.register_time = register_time;
-        this.face_url="<c:url value=\"/resources/image/default.jpg\"/>";
+        this.face_url="<c:url value=\"/resources/upload/default.jpg\"/>";
     }
 
     public String getUser_id() {

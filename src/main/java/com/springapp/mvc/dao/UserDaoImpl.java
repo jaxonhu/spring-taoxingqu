@@ -21,10 +21,10 @@ public class UserDaoImpl extends BaseDao implements UserDao{
     public String user_id;
     public String email;
     public String register_time;
-
+    public String face_url;
     @Override
     public UserPD UserSelect(String user_name) {
-        String sql = "select user_id,user_name,password,email,register_time from user" +
+        String sql = "select user_id,user_name,password,email,register_time,face_url from user" +
                 " where user_name='"+user_name+"'";
         this.getaConnection();
         try{
@@ -35,8 +35,9 @@ public class UserDaoImpl extends BaseDao implements UserDao{
                 user_pwd = rs.getString(3);
                 email = rs.getString(4);
                 register_time = rs.getString(5);
-
+                face_url = rs.getString(6);
                 auser = new UserPD(user_id,user_name,user_pwd,email,register_time);
+                auser.setFace_url(face_url);
             }
         }catch (SQLException e){
             System.out.println(e);
@@ -52,14 +53,16 @@ public class UserDaoImpl extends BaseDao implements UserDao{
         user_pwd = user.user_pwd;
         email = user.Email;
         register_time = user.register_time;
-
-        String sql = "insert into user(user_id,user_name,password,email,register_time) " +
-                "values('"+user_id+"','"+user_name+"','"+user_pwd+"','"+email+"','"+register_time+"')";
+        face_url = user.face_url;
+        String sql = "insert into user(user_id,user_name,password,email,register_time,face_url) " +
+                "values('"+user_id+"','"+user_name+"','"+user_pwd+"','"+email+"','"+register_time+"','"+face_url+"')";
+        String sql2 = "insert into following(user_id1,user_id2) values('"+user_name+"','"+user_name+"'";
         System.out.println(sql);
         UserPD auser = UserSelect(user_name);
         if(auser == null){
             try{
                 int result = aStatement.executeUpdate(sql);
+                int result2= aStatement.executeUpdate(sql2);
             }catch(SQLException e){
                 System.out.println(e);
                 return false;
@@ -71,7 +74,17 @@ public class UserDaoImpl extends BaseDao implements UserDao{
     }
 
     @Override
-    public boolean UserFaceInsert(String user_name) {
-        return false;
+    public boolean UserFaceInsert(String user_name,String url) {
+        String sql = "update user set face_url='"+url+"' where user_name='"+user_name+"'";
+        this.getaConnection();
+        try{
+            int res = aStatement.executeUpdate(sql);
+        }catch (SQLException e){
+            System.out.println(e);
+            this.terminate();
+            return false;
+        }
+        this.terminate();
+        return true;
     }
 }

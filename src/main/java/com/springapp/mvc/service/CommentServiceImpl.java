@@ -26,12 +26,14 @@ public class CommentServiceImpl implements CommentService {
         String comment =(String)map.get("content");
         String tao_id = (String)map.get("tao_id");
         String user_id = (String)map.get("user_id");
+        String face_url = new UserServiceImpl().GetUserFaceUrl(user_id);
         date = new Date();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = dateFormat.format(date);
         time_num = date.getTime();
         comment_id = user_id +"_c_" +time_num;
         Comment com = new Comment(comment_id,comment,currentTime,user_id,tao_id);
+        com.setUser_face_url(face_url);
         boolean res = commentDao.comment_insert(com);
         return res;
     }
@@ -40,6 +42,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> GetCommentByTaoid(int index, String tao_id) {
         List<Comment> results;
         List<Comment> records = commentDao.getCommentByTaoid(tao_id);
+
         PageModel<Comment> pageModel = new PageModel<Comment>(index,records,4);
         results = pageModel.getPageList();
         isNextPageExists = pageModel.isNextPageExist();

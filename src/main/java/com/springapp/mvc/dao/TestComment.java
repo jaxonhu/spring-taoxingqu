@@ -23,10 +23,10 @@ public class TestComment{
         map.put("tao_id",tao_id);
         map.put("user_id",user_name);
 
-        records = commentService.GetCommentByTaoid(2,"胡家煊13246578");
+        records = commentService.GetCommentByTaoid(1,"胡家煊1435633089026");
 
         for(Comment co:records){
-            System.out.println(co.getComment_id());
+            System.out.println(co.getComment());
         }
 //        boolean res = commentService.CommentPublish(map);
 //        if(res){

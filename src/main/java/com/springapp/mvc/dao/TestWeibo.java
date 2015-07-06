@@ -1,6 +1,8 @@
 package com.springapp.mvc.dao;
 
+import com.springapp.mvc.model.Union;
 import com.springapp.mvc.model.Weibo;
+import com.springapp.mvc.service.UserServiceImpl;
 import com.springapp.mvc.service.WeiboServiceImpl;
 import com.springapp.mvc.util.DuplicateException;
 
@@ -31,14 +33,19 @@ public class TestWeibo {
 //                "and interest_id = '"+tag+"'";
 //        System.out.println(sql);
 //        List<Weibo> records = new WeiboDaoImpl().getWeiboRecords("basketball","kkk");
-        WeiboServiceImpl wbService = new WeiboServiceImpl();
-        List<Weibo> records2 = wbService.GetPageByUser(1,"","胡家煊");
-        int isNext = wbService.IsNextPageExist();
-        Iterator it = records2.iterator();
-        while(it.hasNext()){
-            Weibo wb = (Weibo)it.next();
-            System.out.println(wb.user_id+wb.time);
-        }
-        System.out.println(isNext);
+//        WeiboServiceImpl wbService = new WeiboServiceImpl();
+//        List<Union> records2 = wbService.GetPageByUser(1,"","胡家煊");
+//        int isNext = wbService.IsNextPageExist();
+//        Iterator it = records2.iterator();
+//        while(it.hasNext()){
+//            Union union = (Union)it.next();
+//
+//            System.out.println(union.weibo.getWb_content()+union.user.face_url);
+//        }
+//        System.out.println(isNext);
+
+        String face_url="";
+        face_url = new UserServiceImpl().GetUserFaceUrl("胡家煊");
+        System.out.println(face_url);
     }
 }

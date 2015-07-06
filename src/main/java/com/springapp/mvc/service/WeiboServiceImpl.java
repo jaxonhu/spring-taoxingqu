@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.dao.WeiboDao;
 import com.springapp.mvc.dao.WeiboDaoImpl;
+import com.springapp.mvc.model.Union;
 import com.springapp.mvc.model.Weibo;
 import com.springapp.mvc.util.DuplicateException;
 import com.springapp.mvc.util.IdWorker;
@@ -55,14 +56,17 @@ public class WeiboServiceImpl  implements WeiboService{
     }
 
     @Override
-    public List<Weibo> GetPageByIndex(int index, String tag,String user_id) {
+    public List<Union> GetPageByIndex(int index, String tag,String user_id) {
 
+        List<Union> res;
         List<Weibo> results;
         List<Weibo> records = new WeiboDaoImpl().getWeiboRecords(tag,user_id);
+
         PageModel<Weibo> pageModel= new PageModel<Weibo>(index,records,5);
         results = pageModel.getPageList();
+        res = new UserServiceImpl().GetUsersByWeibo(results);
         isNextPageExist = pageModel.isNextPageExist();
-        return results;
+        return res;
     }
 
     @Override
@@ -72,15 +76,22 @@ public class WeiboServiceImpl  implements WeiboService{
 
 
     @Override
-    public List<Weibo> GetPageByUser(int index, String tag, String user_id) {
+    public List<Union> GetPageByUser(int index, String tag, String user_id) {
 
 
         List<Weibo> results;
+        List<Union> res;
         List<Weibo> records = new WeiboDaoImpl().getWeiboRecordsByUser(tag,user_id);
+
         PageModel<Weibo> pageModel= new PageModel<Weibo>(index,records,5);
+
         results = pageModel.getPageList();
+
+
+
+        res = new UserServiceImpl().GetUsersByWeibo(results);
         isNextPageExist = pageModel.isNextPageExist();
-        return results;
+        return res;
     }
 
     @Override
@@ -88,5 +99,23 @@ public class WeiboServiceImpl  implements WeiboService{
         int num = 0;
         num = weiboDao.getWeiboNum(user_id);
         return num;
+    }
+
+    @Override
+    public boolean GivePraise(String tao_id) {
+
+        int thumb_on = weiboDao.getThumbon(tao_id);
+        thumb_on +=1;
+        int res = weiboDao.setThumbon(tao_id,thumb_on);
+        return true;
+    }
+
+    @Override
+    public boolean GiveDown(String tao_id) {
+
+        int thumb_down = weiboDao.getThumbdown(tao_id);
+        thumb_down +=1;
+        int res = weiboDao.setThumbdown(tao_id,thumb_down);
+        return true;
     }
 }
