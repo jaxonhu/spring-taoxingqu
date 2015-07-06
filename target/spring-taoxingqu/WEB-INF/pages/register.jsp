@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/login.css"/> ">
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/register.css"/> "/>
+    <link href="<c:url value="/resources/style/common.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body class="B_login">
 <div class="main">
@@ -47,6 +48,7 @@
 <script>
     window.onload=init(${result});
     function init(message){
+        alert(message);
         if(message == "error"){
             alert("用户名或密码错误，请重新登录");
         }

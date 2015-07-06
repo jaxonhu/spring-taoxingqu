@@ -7,8 +7,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<c:url value="/resources/style/profile.css"/> "/>
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <link href="<c:url value="/resources/style/common.css"/>" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="/resources/style/header.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/resources/style/weibo.css"/>"/>
     <script src="<c:url value="/resources/JS/jquery-1.6.1.min.js"/>"></script>
     <script  src="<c:url value="/resources/JS/ajaxfileupload.js"/>"></script>
+    <script  src="<c:url value="/resources/JS/profile.js"/>"></script>
+    <script  src="<c:url value="/resources/JS/common.js"/>"></script>
     <%--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
     <%--<script src="http://malsup.github.com/jquery.form.js"></script>--%>
     <script  src="<c:url value="/resources/JS/face_upload.js"/>"></script>
@@ -46,9 +51,9 @@
 
     </div>
     <div class="main_center">
-        <div class="main_center_header" style="background-image: url('../image/001.jpg')">
+        <div class="main_center_header" style="background-image: url('<c:url value="/resources/image/001.jpg"/> ')">
             <div class="face_header">
-                <img  src="<c:url value="/resources/image/face2.jpg"/>" alt=""/>
+                <img  src="${face_url}" alt=""/>
             </div>
             <div class="face_name">
                 <span>${user_name}</span>
@@ -56,8 +61,14 @@
             <div class="follow">
                 <a class="follow_btn" onclick="following('${user_name}');" href="javascript:void(0);">关注</a>
             </div>
-                <input type="file" id="file" name="file"/>
-                <input value="upload" type="button" id="upload" onclick="ImageUpload();">上传</input>
+            <div class="image_upload">
+                <div id="file_btn">
+                    <input type="file" id="file" name="file"/>
+                </div>
+                <div id="upload_btn">
+                    <input value="上传" type="button" id="upload" onclick="ImageUpload();">
+                </div>
+            </div>
         </div>
 
         <nav class="menu_bar">
@@ -140,168 +151,6 @@
                 next[0].href = "<%=request.getContextPath()%>/profile?tag=&page="+(index+1);
             }
         }
-    }
-
-    function check_cookie(user_name,res){
-        var name = getCookie("user_name");
-        if( res=="yes" ){
-            update_follow_btn();
-        }
-        if(name == user_name){
-            set_follow_btn_display();
-        }
-
-    }
-
-    function update_follow_btn(){
-        var follow = document.getElementsByClassName('follow')[0];
-        follow.setAttribute("class","follow_already");
-        var follow_btn = document.getElementsByClassName("follow_btn")[0];
-        follow_btn.innerHTML="已经关注";
-        follow_btn.setAttribute("onclick","javascript:void(0);");
-    }
-
-    function set_follow_btn_display(){
-        var follow = document.getElementsByClassName('follow')[0];
-        follow.style.display="none";
-        var follow_btn = document.getElementsByClassName('follow_btn')[0];
-        follow_btn.style.display="none";
-    }
-
-
-
-    function addEvent(eventTarget,eventType,eventHandler){
-        if(eventTarget.addEventListener){
-            eventTarget.addEventListener(eventType,eventHandler,false);
-            alert("hello");
-        }else{
-            alert("world");
-            if(eventTarget.attachEvent){
-                eventType="on"+eventType;
-                eventTarget.attachEvent(eventType,eventHandler);
-            }else{
-                eventTarget["on"+eventType]=eventHandler;
-            }
-        }
-    }
-
-    function getCookie(c_name)
-    {
-        if (document.cookie.length>0)
-        {
-            c_start=document.cookie.indexOf(c_name + "=")
-            if (c_start!=-1)
-            {
-                c_start=c_start + c_name.length+1
-                c_end=document.cookie.indexOf(";",c_start)
-                if (c_end==-1) c_end=document.cookie.length
-                return unescape(document.cookie.substring(c_start,c_end))
-            }
-        }
-        return ""
-    }
-
-    function following(user_name){
-        var user_name = document.getElementsByClassName("header_span")[1].innerHTML;
-        var data = {
-            user_name:user_name
-        }
-        $.ajax({
-            type:"POST",
-            url:"<%=request.getContextPath()%>/following",
-            data:data,
-            success:function(data){
-                if(data){
-                    alert("关注成功");
-                    update_follow_btn();
-                }
-            },
-            error:function(){
-                alert("ajax连接失败");
-            }
-        });
-    }
-    function addClass(obj, cls) {
-        if (!this.hasClass(obj, cls)) obj.className += " " + cls;
-    }
-
-    function hasClass(obj, cls) {
-        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-    }
-
-    function load_comments(index,weibo_id){
-        var list = document.getElementsByClassName("comments");
-        var content = document.getElementById("content_comment");
-        var user_id = getCookie("user_name");
-        var data = {
-            user_id:user_id,
-            tao_id: weibo_id,
-            page:1
-        };
-        if(list[index].style.display == "none"){
-            $.ajax({
-                type:"POST",
-                url:"<%=request.getContextPath()%>/comment/show",
-                data:data,
-                page:1,
-                dataType:"json",
-                success:function(data){
-                    if(data){
-                        $.each(data,function(index1){
-                            var content =
-                                    "<div class='comment_item clearfix'>"+
-                                    "<div class='comment_face'>"+
-                                    "<img src=\"<c:url value='/resources/image/face.jpg'/> \" height='30' width='30'/>"+
-                                    "</div>"+
-                                    "<div class='comment_content'>"+
-                                    "<span>"+data[index1].user_id+"</span>"+
-                                    "   ："+data[index1].comment+
-                                    "</div>"+
-                                    "</div>"
-
-                            $(".comment_list:eq("+index+")").append(content);
-                        });
-
-                    }
-                    show_comments(index);
-                },
-                error:function(){
-                    alert("ajax连接失败");
-                }
-            });
-        }else{
-            $(".comment_list:eq("+index+")").empty();
-            list[index].style.display = "none";
-        }
-    }
-    function show_comments(index){
-        var commentlist = document.getElementsByClassName("comments");
-        if (commentlist[index].style.display == "none") {
-            commentlist[index].style.display = "block";
-        } else {
-            commentlist[index].style.display = "none";
-        }
-    }
-    function CommentPublish(index,tao_id){
-        var content = document.getElementsByClassName('content_comment')[index].value;
-        var data ={
-            content:content,
-            tao_id:tao_id
-        };
-        alert(content);
-        $.ajax({
-            type:"POST",
-            url:"<%=request.getContextPath()%>/comment/publish",
-            data:data,
-            success:function(data){
-                if(data){
-                    alert("评论成功");
-                }
-            },
-            error:function(){
-                alert("ajax连接失败");
-            }
-        });
     }
 </script>
 

@@ -118,4 +118,17 @@ public class WeiboServiceImpl  implements WeiboService{
         int res = weiboDao.setThumbdown(tao_id,thumb_down);
         return true;
     }
+
+    @Override
+    public List<Union> GetSearchRes(String keywords){
+        String[] arry;
+        List<Union> res;
+        arry = keywords.split("\\s+");
+        for(String temp:arry){
+            System.out.println(temp);
+        }
+        List<Weibo> records= weiboDao.getSearchRes(arry);
+        res = new UserServiceImpl().GetUsersByWeibo(records);
+        return res;
+    }
 }

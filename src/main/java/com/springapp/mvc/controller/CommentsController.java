@@ -53,6 +53,7 @@ public class CommentsController {
         List<Comment> list ;
         list= new CommentServiceImpl().GetCommentByTaoid(index,tao_id);
         String json = mapper.writeValueAsString(list);
+        System.out.println(json);
         response.setCharacterEncoding("UTF-8"); //设置编码格式
         response.setContentType("text/html");   //设置数据格式
         PrintWriter out2 = response.getWriter(); //获取写入对象

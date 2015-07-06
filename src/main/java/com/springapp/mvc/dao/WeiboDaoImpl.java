@@ -223,4 +223,41 @@ public class WeiboDaoImpl extends BaseDao implements WeiboDao  {
         this.terminate();
         return 0;
     }
+
+    @Override
+    public List<Weibo> getSearchRes(String[] arry){
+        List<Weibo> records  = new ArrayList<Weibo>();
+        String tao_id;
+        String picture_id;
+        int thumb_on;
+        String time;
+        String userid;
+        String content;
+        String interest_id;
+        String sql ="select * from weibo where content like'%"+arry[0]+"%'";
+        if(arry.length>1){
+            for(int i=1;i<=arry.length;i++){
+                sql = sql + "and content like '%"+arry[i]+"%'";
+            }
+        }
+        this.getaConnection();
+        try{
+            ResultSet rs = aStatement.executeQuery(sql);
+            while(rs.next()){
+                tao_id = rs.getString(1);
+                picture_id = rs.getString(2);
+                thumb_on = rs.getInt(3);
+                time = rs.getString(4);
+                user_id = rs.getString(5);
+                interest_id = rs.getString(6);
+                content = rs.getString(7);
+                Weibo wb = new Weibo(tao_id,content,picture_id,thumb_on,time,user_id,interest_id);
+                records.add(wb);
+            }
+            rs.close();
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return records;
+    }
 }

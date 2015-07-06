@@ -3,6 +3,7 @@ package com.springapp.mvc.controller;
 import com.springapp.mvc.model.Union;
 import com.springapp.mvc.model.Weibo;
 import com.springapp.mvc.service.FollowServiceImpl;
+import com.springapp.mvc.service.UserServiceImpl;
 import com.springapp.mvc.service.WeiboServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,11 @@ public class ProfileController {
         String myname = (String)session.getAttribute("user_name");
         String page = request.getParameter("page");
         String tag = request.getParameter("tag");
+        String face_url ="";
         WeiboServiceImpl wbService = new WeiboServiceImpl();
         int index = Integer.parseInt(page);
         List<Union> records = wbService.GetPageByUser(index,tag,user_name);
+        face_url = new UserServiceImpl().GetUserFaceUrl(user_name);
         int isNext = wbService.IsNextPageExist();
         boolean res = new FollowServiceImpl().Check_follow(myname,user_name);
         if(res){
@@ -35,7 +38,8 @@ public class ProfileController {
         }else{
             mv.addObject("focus","no");
         }
-        mv.addObject("weiboList",records);
+        mv.addObject("face_url",face_url);
+        mv.addObject("UnionList",records);
         mv.addObject("isNextPage",isNext);
         mv.addObject("user_name",user_name);
         mv.addObject("index",index);

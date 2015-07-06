@@ -73,14 +73,17 @@ public class FollowDaoImpl extends BaseDao implements FollowDao {
     public List<UserPD> GetFollowList(String user_id2) {
         List<UserPD> records = new ArrayList<UserPD>();
         String user_name;
-        String sql = "select user_id1 from following where user_id2 ='"+user_id2+"'";
+        String face_url;
+        String sql = "select user_id1,face_url from following where user_id2 ='"+user_id2+"'";
 
         this.getaConnection();
         try{
             ResultSet rs = aStatement.executeQuery(sql);
             while(rs.next()){
                 user_name = rs.getString(1);
+                face_url = rs.getString(2);
                 UserPD user = new UserPD("",user_name,"","","");
+                user.setFace_url(face_url);
                 records.add(user);
             }
             rs.close();

@@ -7,6 +7,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<c:url value="/resources/style/follow.css"/>"/>
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <link href="<c:url value="/resources/style/common.css"/>" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="/resources/style/header.css"/>"/>
+    <script  src="<c:url value="/resources/JS/common.js"/>"></script>
     <title></title>
 </head>
 <body>
@@ -64,7 +67,7 @@
                 <c:forEach items="${FollowList}" var="user" varStatus="vs">
                 <li>
                     <div class="follow_face">
-                        <img src="<c:url value="/resources/image/face.jpg"/>"alt=""/>
+                        <img src="${user.face_url}"alt=""/>
                     </div>
                     <div class="follow_info">
                         <span class="follow_name">${user.user_name}</span>
@@ -110,25 +113,6 @@
                 next[0].href = "<%=request.getContextPath()%>/follow?user_id=${user_name}page="+(index+1);
             }
         }
-    }
-
-
-
-
-    function getCookie(c_name)
-    {
-        if (document.cookie.length>0)
-        {
-            c_start=document.cookie.indexOf(c_name + "=")
-            if (c_start!=-1)
-            {
-                c_start=c_start + c_name.length+1
-                c_end=document.cookie.indexOf(";",c_start)
-                if (c_end==-1) c_end=document.cookie.length
-                return unescape(document.cookie.substring(c_start,c_end))
-            }
-        }
-        return ""
     }
 </script>
 </body>

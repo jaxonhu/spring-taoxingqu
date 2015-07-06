@@ -1,6 +1,33 @@
-#file{
-
+body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, th, td, p, blockquote, pre, form, fieldset, legend, input, button, textarea, hr {
+    margin: 0;
+    padding: 0;
+    font-family:  Arial, 'Microsoft YaHei' !important;
 }
-#upload{
-
+img{
+    display: block;
+}
+.clearfix::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.clearfix{
+    display: inline-block;
+}
+.clearfix {
+    display: block;
+}
+.clear {
+    clear: both;
+    font: 0px/0 Arial;
+    height: 0;
+    visibility: hidden;
+}
+body{
+    background-image: url("../image/body_bg.jpg");
+    background-color: #b9dbf4;
+    background-position: 0 top;
+    background-repeat: repeat-x;
 }

@@ -18,4 +18,5 @@ public interface WeiboDao {
     public int getThumbdown(String tao_id);
     public int setThumbon(String tao_id,int thumb_on);
     public int setThumbdown(String tao_id,int thumb_down);
+    public List<Weibo> getSearchRes(String[] arry);
 }

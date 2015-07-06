@@ -18,4 +18,5 @@ public interface WeiboService {
     public int GetWeiboNum(String user_id);//获取用户微博数量
     public boolean GivePraise(String tao_id);//点赞
     public boolean GiveDown(String tao_id);
+    public List<Union> GetSearchRes(String keywords);
 }

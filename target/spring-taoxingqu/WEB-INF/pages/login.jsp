@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link href="<c:url value="/resources/style/login.css"/>" rel="stylesheet" type="text/css" />
+	<link href="<c:url value="/resources/style/common.css"/>" rel="stylesheet" type="text/css" />
 </head>
 <body class="B_login">
 	<div class="main">
