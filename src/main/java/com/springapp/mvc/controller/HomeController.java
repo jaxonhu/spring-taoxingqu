@@ -77,6 +77,7 @@ public class HomeController {
         int weibo_num = wbService.GetWeiboNum(name);
         int follow_num = followService.GetFollowNum(name);
         int fans_num = followService.GetFansNum(name);
+        user_name =  (String)session.getAttribute("user_name");
         mv.addObject("UnionList",records2);
         mv.addObject("isNextPage",isNext);
         mv.addObject("user_name",user_name);
@@ -93,7 +94,6 @@ public class HomeController {
     @RequestMapping(value = "/homes/{tag}")
     public ModelAndView setPageByTag(@PathVariable String tag){
         ModelAndView mv = new ModelAndView();
-
         return mv;
     }
 

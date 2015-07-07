@@ -55,7 +55,7 @@ public class ImageUpload{
         将url存入数据库
          */
 //        <c:url value="/resources/image/logo.png"/>
-        String url2 = "<c:url value=\"/resources/upload/"+filename+"\"/>";
+        String url2 = "/spring-taoxingqu/resources/upload/"+filename;
 
         boolean res = new UserServiceImpl().UserFaceUpload(user_name,url2);
 

@@ -15,7 +15,7 @@
 <body>
 <div class="header clearfix">
     <div class="logo">
-        <img src="<c:url value="/resources/image/logo_home.png"/> " alt=""/>
+        <%--<img src="<c:url value="/resources/image/logo_home.png"/> " alt=""/>--%>
     </div>
     <div class="search">
         <input class="search_input" type="text" value="" placeholder="我要搜索..."/>
@@ -24,7 +24,7 @@
     <div class="menu">
         <nav>
             <li style="font-size: 13px;">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/homes?page=1&tag=">
                     <i class="fa fa-home  fa-2x"></i>
                     <span class="header_span" style="color: #333;" >首页</span>
                 </a>
@@ -46,7 +46,7 @@
     <div class="main_center">
         <div class="main_center_header" style="background-image: url('<c:url value="/resources/image/001.jpg"/> ')">
             <div class="face_header">
-                <img  src="<c:url value="/resources/image/face2.jpg"/> " alt=""/>
+                <img  src="${face_url}" alt=""/>
             </div>
             <div class="face_name">
                 <span>${user_name}</span>
@@ -67,7 +67,7 @@
                 <c:forEach items="${FollowList}" var="user" varStatus="vs">
                 <li>
                     <div class="follow_face">
-                        <img src="${user.face_url}"alt=""/>
+                        <img src="${user.face_url}" style="height: 50px;width: 50px;" alt=""/>
                     </div>
                     <div class="follow_info">
                         <span class="follow_name">${user.user_name}</span>
@@ -90,10 +90,12 @@
 
 <script>
     window.onload = init(${index},${isNextPage});
+
     function init(index,isNextPage){
         var user_name = getCookie("user_name");
         var prev = document.getElementsByClassName("prev_footer");
         var next = document.getElementsByClassName("next_footer");
+        check_cookie("${user_name}","${focus}");
         if(index == 1){
             addClass(prev[0],"unclick");
             prev[0].href = 'javascript:void(0);';
@@ -114,6 +116,33 @@
             }
         }
     }
+    function check_cookie(user_name,res){
+        var name = getCookie("user_name");
+        if( res=="yes" ){
+            update_follow_btn();
+        }
+        if(name == user_name){
+            set_follow_btn_display();
+        }else{
+            $(".image_upload:eq(0)").remove();
+        }
+    }
+
+    function update_follow_btn(){
+        var follow = document.getElementsByClassName('follow')[0];
+        follow.setAttribute("class","follow_already");
+        var follow_btn = document.getElementsByClassName("follow_btn")[0];
+        follow_btn.innerHTML="已经关注";
+        follow_btn.setAttribute("onclick","javascript:void(0);");
+    }
+
+    function set_follow_btn_display(){
+        $(".follow:eq(0)").css('display','none');
+        $(".follow_btn:eq(0)").css('display','none');
+        $(".follow_already:eq(0)").css('display','none');
+    }
+
+
 </script>
 </body>
 </html>

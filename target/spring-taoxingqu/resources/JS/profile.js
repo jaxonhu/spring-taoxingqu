@@ -22,10 +22,9 @@ function update_follow_btn(){
 }
 
 function set_follow_btn_display(){
-    var follow = document.getElementsByClassName('follow')[0];
-    follow.style.display="none";
-    var follow_btn = document.getElementsByClassName('follow_btn')[0];
-    follow_btn.style.display="none";
+    $(".follow:eq(0)").css('display','none');
+    $(".follow_btn:eq(0)").css('display','none');
+    $(".follow_already:eq(0)").css('display','none');
 }
 
 function following(user_name){
@@ -119,6 +118,62 @@ function CommentPublish(index,tao_id){
         },
         error:function(){
             alert("ajax连接失败");
+        }
+    });
+}
+
+function GivePraise(index,tao_id){
+
+    var data = {
+        tao_id:tao_id
+    }
+    $.ajax({
+        type:"POST",
+        url:"/spring-taoxingqu/weibo/praise",
+        data:data,
+        success:function(data){
+            if(data){
+                alert("点赞成功哟！");
+            }
+            var num = $(".thumb_on:eq("+index+")").html();
+            alert($(".thumb_on:eq("+index+")").html());
+            num = parseInt(num,10);
+            num+=1;
+            $(".thumb_on:eq("+index+")").html(num);
+            $(".thumb_on:eq("+index+")").parent().css('color','#ffa00a');
+            $(".thumb_on:eq("+index+")").css('color','#ffa00a');
+            $(".handler_msg:eq("+index+")").find('a:eq(0)').attr('onclick','return false;');
+        },
+        error:function(){
+            alert("服务器君便当了~");
+        }
+    });
+}
+
+function GiveDown(index,tao_id){
+    var data = {
+        tao_id:tao_id
+    }
+    $.ajax({
+        type:"POST",
+        url:"/spring-taoxingqu/weibo/praise",
+        data:data,
+        success:function(data){
+            if(data){
+                alert("点赞成功哟！");
+            }
+            var num = $(".thumb_down:eq("+index+")").html();
+            alert($(".thumb_down:eq("+index+")").html());
+            num = parseInt(num,10);
+            num+=1;
+            $(".thumb_down:eq("+index+")").html(num);
+            $(".thumb_down:eq("+index+")").parent().css('color','#ffa00a');
+            alert($(".thumb_down:eq("+index+")").parent().html());
+            $(".thumb_down:eq("+index+")").css('color','#ffa00a');
+            $(".handler_msg:eq("+index+")").find('a:eq(1)').attr('onclick','return false;');
+        },
+        error:function(){
+            alert("服务器君便当了~");
         }
     });
 }

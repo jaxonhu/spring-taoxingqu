@@ -12,7 +12,7 @@
 	<div class="main">
 		<div class="main-header">
 		<div class="logo">
-			<img src="<c:url value="/resources/image/logo.png"/>"  alt=""/>
+			<%--<img src="<c:url value="/resources/image/logo.png"/>"  alt=""/>--%>
 		</div>
 		</div>
 		<div class="main-container clearfix">

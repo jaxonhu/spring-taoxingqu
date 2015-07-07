@@ -22,7 +22,7 @@
 <body>
 <div class="header clearfix">
     <div class="logo">
-        <img src="<c:url value="/resources/image/logo_home.png"/> " alt=""/>
+        <%--<img src="<c:url value="/resources/image/logo_home.png"/> " alt=""/>--%>
     </div>
     <div class="search">
         <input class="search_input" type="text" value="" placeholder="我要搜索..."/>
@@ -31,7 +31,7 @@
     <div class="menu">
         <nav>
             <li style="font-size: 13px;">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/homes?page=1&tag=">
                     <i class="fa fa-home  fa-2x"></i>
                     <span class="header_span" style="color: #333;" >首页</span>
                 </a>
@@ -94,7 +94,7 @@
 
                 <div class="handler_msg" id="${list.weibo.tao_id}">
                     <nav>
-                        <a href="" onclick="return false;"><li style="font-size:17px;"><i class="fa fa-thumbs-o-up" ><span style="font-size: 12px">${list.weibo.thumb_on}</span></i>
+                        <a href="" onclick="GivePraise(${vs.index},'${list.weibo.tao_id}');return false;"><li style="font-size:17px;"><i class="fa fa-thumbs-o-up" ><span style="font-size: 12px">${list.weibo.thumb_on}</span></i>
                         </li></a>
                         <a href="" onclick="return false;" ><li style="font-size:17px;"><i class="fa fa-thumbs-o-down"><span style="font-size: 12px">11</span></i>
                         </li></a>
@@ -120,10 +120,8 @@
             <!--<span class="center_footer"></span>-->
             <a href="" class="next_footer"  >下一页</a>
         </div>
-
     </div>
     <div class="main_right">
-
     </div>
 </div>
 <script>

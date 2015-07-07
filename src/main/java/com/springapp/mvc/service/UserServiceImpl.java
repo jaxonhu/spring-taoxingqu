@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by hujiaxuan on 2015/6/27.
  */
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
     public UserDao  userDao= new UserDaoImpl();
     public UserPD userPD = null;
     public String user_id;

@@ -10,5 +10,5 @@ public interface UserDao {
     public UserPD UserSelect(String user_name);
     public boolean UserInsert(UserPD user);
     public boolean UserFaceInsert(String user_name,String url);
-
+    public String GetUserFaceUrl(String user_name);
 }

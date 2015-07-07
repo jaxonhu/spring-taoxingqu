@@ -14,7 +14,7 @@
 <div class="main">
     <div class="main-header">
         <div class="logo">
-            <img src="<c:url value="/resources/image/logo.png"/>"  alt=""/>
+            <%--<img src="<c:url value="/resources/image/logo.png"/>"  alt=""/>--%>
         </div>
     </div>
     <div class="main-container clearfix">
@@ -48,7 +48,6 @@
 <script>
     window.onload=init(${result});
     function init(message){
-        alert(message);
         if(message == "error"){
             alert("用户名或密码错误，请重新登录");
         }

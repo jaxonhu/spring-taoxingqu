@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.dao.FollowDao;
 import com.springapp.mvc.dao.FollowDaoImpl;
+import com.springapp.mvc.dao.UserDaoImpl;
 import com.springapp.mvc.model.UserPD;
 import com.springapp.mvc.util.PageModel;
 import org.hsqldb.rights.User;
@@ -30,23 +31,31 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public List<UserPD> GetFollowList(int index,String user_id2) {
-
+    public List<UserPD> GetFollowList(int index,String user_id2){
+        String face_url="";
         List<UserPD> results;
         List<UserPD> records = followDao.GetFollowList(user_id2);
         PageModel<UserPD> pageModel = new PageModel<UserPD>(index,records,10);
         results = pageModel.getPageList();
+        for(UserPD u:results){
+            face_url = new UserDaoImpl().GetUserFaceUrl(u.user_name);
+            u.setFace_url(face_url);
+        }
         isNextPageExists = pageModel.isNextPageExist();
         return results;
     }
 
     @Override
     public List<UserPD> GetFansList(int index,String user_id1) {
-
+        String face_url="";
         List<UserPD> results;
         List<UserPD> records = followDao.GetFansList(user_id1);
         PageModel<UserPD> pageModel = new PageModel<UserPD>(index,records,10);
         results = pageModel.getPageList();
+        for(UserPD u:results){
+            face_url = new UserDaoImpl().GetUserFaceUrl(u.user_name);
+            u.setFace_url(face_url);
+        }
         isNextPageExists = pageModel.isNextPageExist();
         return results;
     }

@@ -56,7 +56,7 @@ public class UserDaoImpl extends BaseDao implements UserDao{
         face_url = user.face_url;
         String sql = "insert into user(user_id,user_name,password,email,register_time,face_url) " +
                 "values('"+user_id+"','"+user_name+"','"+user_pwd+"','"+email+"','"+register_time+"','"+face_url+"')";
-        String sql2 = "insert into following(user_id1,user_id2) values('"+user_name+"','"+user_name+"'";
+        String sql2 = "insert into following(user_id1,user_id2) values('"+user_name+"','"+user_name+"')";
         System.out.println(sql);
         UserPD auser = UserSelect(user_name);
         if(auser == null){
@@ -86,5 +86,23 @@ public class UserDaoImpl extends BaseDao implements UserDao{
         }
         this.terminate();
         return true;
+    }
+
+    @Override
+    public String GetUserFaceUrl(String user_name) {
+        String face_url="";
+        String sql = "select face_url from user where user_name='"+user_name+"'";
+        this.getaConnection();
+        try{
+            ResultSet rs = aStatement.executeQuery(sql);
+            if(rs.next()){
+                face_url = rs.getString(1);
+            }
+        }catch (SQLException e){
+            this.terminate();
+            System.out.println(e);
+        }
+        this.terminate();
+        return face_url;
     }
 }

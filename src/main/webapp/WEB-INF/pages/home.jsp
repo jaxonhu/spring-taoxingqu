@@ -22,7 +22,7 @@
 <body>
     <div class="header clearfix">
         <div class="logo">
-            <img src="<c:url value="/resources/image/logo_home.png"/>" alt=""/>
+            <%--<img src="<c:url value="/resources/image/logo_home.png"/>" alt=""/>--%>
         </div>
         <div class="search">
             <input class="search_input" type="text" value="" placeholder="我要搜索..."/>
@@ -31,7 +31,7 @@
         <div class="menu">
             <nav>
                 <li style="font-size: 13px;">
-                    <a href="">
+                    <a href="<%=request.getContextPath()%>/homes?page=1&tag=">
                         <i class="fa fa-home  fa-2x"></i>
                         <span class="header_span" style="color: #333;" >首页</span>
                     </a>

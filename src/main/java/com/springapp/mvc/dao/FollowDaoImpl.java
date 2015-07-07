@@ -70,27 +70,22 @@ public class FollowDaoImpl extends BaseDao implements FollowDao {
     }
 
     @Override
-    public List<UserPD> GetFollowList(String user_id2) {
+    public List<UserPD> GetFollowList(String user_id2){
         List<UserPD> records = new ArrayList<UserPD>();
         String user_name;
-        String face_url;
-        String sql = "select user_id1,face_url from following where user_id2 ='"+user_id2+"'";
-
+        String sql = "select user_id1 from following where user_id2 ='"+user_id2+"'";
         this.getaConnection();
         try{
             ResultSet rs = aStatement.executeQuery(sql);
             while(rs.next()){
                 user_name = rs.getString(1);
-                face_url = rs.getString(2);
                 UserPD user = new UserPD("",user_name,"","","");
-                user.setFace_url(face_url);
                 records.add(user);
             }
             rs.close();
         }catch(SQLException e){
             System.out.println(e);
         }
-
         return records;
     }
 
@@ -134,7 +129,7 @@ public class FollowDaoImpl extends BaseDao implements FollowDao {
     }
 
     @Override
-    public int GetFansNum(String user_id1) {
+    public int GetFansNum(String user_id1){
         String sql = "select count(1) from following where user_id2='"+user_id1+"'";
         int num = 0;
         this.getaConnection();
